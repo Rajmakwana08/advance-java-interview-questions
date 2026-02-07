@@ -457,22 +457,496 @@ independent and provides high performance.
       `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 4,
+      question: "4. Explain Steps to establish JDBC connection. 👉 With method names (Class.forName, getConnection, createStatement)",
       answer: "",
-      codeExample: ``
+      codeExample: `
+⭐ Steps to Establish JDBC Connection
+
+To connect a Java application with a database using JDBC, we follow 5 main steps.
+
+
+
+1️⃣ Load and Register the Driver
+
+👉 Method: Class.forName()
+
+This step loads the JDBC driver class into memory.
+
+Why needed?
+
+  So Java knows which database driver to use
+
+Method used:
+Class.forName("com.mysql.cj.jdbc.Driver");
+
+
+📌 In simple words:
+This step tells Java: “Use MySQL driver”.
+
+
+
+2️⃣ Establish Connection
+
+👉 Method: DriverManager.getConnection()
+
+This step creates a connection between Java program and database.
+
+Method used:
+Connection con = DriverManager.getConnection(url, username, password);
+
+
+📌 In simple words:
+This step connects Java to database using URL, username, and password.
+
+
+
+3️⃣ Create Statement
+
+👉 Method: createStatement()
+
+This step creates a Statement object to send SQL queries to the database.
+
+Method used:
+Statement st = con.createStatement();
+
+
+📌 In simple words:
+Statement is used to execute SQL commands.
+
+
+
+4️⃣ Execute SQL Query
+
+👉 Methods:
+
+executeQuery() → for SELECT
+executeUpdate() → for INSERT, UPDATE, DELETE
+
+Example:
+ResultSet rs = st.executeQuery("SELECT * FROM student");
+
+
+📌 In simple words:
+This step runs SQL query on database.
+
+
+
+5️⃣ Close the Connection
+
+👉 Method: close()
+
+This step closes all opened resources.
+
+Example:
+con.close();
+
+
+📌 In simple words:
+This step releases database resources.
+
+
+⭐ JDBC Connection Steps Flow (Easy Recall)
+
+Load Driver
+     ↓
+Create Connection
+     ↓
+Create Statement
+     ↓
+Execute Query
+     ↓
+Close Connection
+
+
+
+⭐ Methods Summary Table (Exam-Friendly)
+
+| Step             | Method Name         | Purpose               |
+| ---------------- | ------------------- | --------------------- |
+| Load Driver      | Class.forName()     | Loads JDBC driver     |
+| Connect DB       | getConnection()     | Creates DB connection |
+| Create Statement | createStatement()   | Sends SQL             |
+| Execute Query    | executeQuery()      | Runs SELECT           |
+| Close            | close()             | Free resources        |
+
+
+⭐ One-line Exam Answer (Very Useful)
+
+JDBC connection is established by loading the driver, creating a connection using getConnection(), 
+creating a statement using createStatement(), executing SQL queries, and finally closing the 
+connection.
+
+
+
+
+✅ Full JDBC Program (Using Thin Driver – MySQL)
+
+// Step 1: Import required packages
+import java.sql.*;
+
+class JDBCExample {
+    public static void main(String[] args) {
+
+        try {
+            // Step 2: Load and Register JDBC Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Driver class loaded into memory
+
+            // Step 3: Establish Connection
+            String url = "jdbc:mysql://localhost:3306/college";
+            String user = "root";
+            String password = "root";
+
+            Connection con = DriverManager.getConnection(url, user, password);
+            // Connection created between Java and Database
+
+            // Step 4: Create Statement
+            Statement st = con.createStatement();
+            // Statement object created to execute SQL query
+
+            // Step 5: Execute SQL Query
+            ResultSet rs = st.executeQuery("SELECT * FROM student");
+
+            // Step 6: Process ResultSet
+            while (rs.next()) {
+                System.out.println(
+                    rs.getInt(1) + " " +
+                    rs.getString(2) + " " +
+                    rs.getInt(3)
+                );
+            }
+
+            // Step 7: Close Connections
+            rs.close();
+            st.close();
+            con.close();
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Driver not found");
+        } catch (SQLException e) {
+            System.out.println("Database error");
+        }
+    }
+}
+
+
+
+🔁 JDBC Steps Mapping (Very Important for Exam)
+
+Class.forName()        → Load Driver
+getConnection()        → Create Connection
+createStatement()     → Create Statement
+executeQuery()        → Execute SQL
+ResultSet              → Get Output
+close()               → Close Resources
+
+
+📝 Viva / Exam Tip
+
+If examiner asks “Which driver is used?”
+👉 Answer: Type 4 – Thin Driver
+      `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 5,
+      question: "5. Differentiate between: Statement vs PreparedStatement vs CallableStatement",
+      answer: "👉 High-scoring + short writing",
+      codeExample: `
+  ⭐ Statement vs PreparedStatement vs CallableStatement
+
+These are JDBC interfaces used to execute SQL queries.
+
+
+1️⃣ Statement
+
+Statement is used to execute simple SQL queries without parameters.
+
+Features:
+
+SQL query written at runtime
+No parameters
+Slower execution
+Not secure (SQL Injection possible)
+
+Example:
+
+Statement st = con.createStatement();
+st.executeQuery("SELECT * FROM student");
+
+
+
+2️⃣ PreparedStatement
+
+PreparedStatement is used to execute pre-compiled SQL queries with parameters.
+
+Features:
+
+SQL query written once
+Supports parameters (?)
+Faster than Statement
+More secure
+
+Example:
+
+PreparedStatement ps = con.prepareStatement(
+    "SELECT * FROM student WHERE id=?"
+);
+ps.setInt(1, 101);
+ResultSet rs = ps.executeQuery();
+
+
+
+3️⃣ CallableStatement
+
+CallableStatement is used to execute stored procedures in the database.
+
+Features:
+
+Calls stored procedures
+Supports IN, OUT parameters
+Used for complex operations
+Faster for repeated tasks
+
+Example:
+
+CallableStatement cs = con.prepareCall("{call getStudent(?)}");
+cs.setInt(1, 101);
+ResultSet rs = cs.executeQuery();
+
+
+⭐ Difference Table (Very Important ⭐⭐⭐)
+
+| Feature       | Statement      | PreparedStatement | CallableStatement |
+| ------------- | -------------- | ----------------- | ----------------- |
+| SQL Type      | Simple SQL     | Pre-compiled SQL  | Stored Procedure  |
+| Parameters    | ❌ No          | ✅ Yes (?)       | ✅ Yes (IN/OUT)   |
+| Performance   | Slow           | Faster            | Fastest           |
+| Security      | Low            | High              | High              |
+| SQL Injection | Possible       | Not possible      | Not possible      |
+| Use Case      | Simple queries | Repeated queries  | Complex DB logic  |
+| Compilation   | Every time     | Once              | Once              |
+
+
+⭐ Difference: Statement vs PreparedStatement vs CallableStatement
+
+| Statement                   | PreparedStatement                  | CallableStatement              |
+| --------------------------- | ---------------------------------- | ------------------------------ |
+| Used for simple SQL queries | Used for parameterized SQL queries | Used to call stored procedures |
+| Parameters not allowed      | Parameters allowed using ?       | IN / OUT parameters allowed    |
+| Query compiled every time   | Query compiled once                | Procedure compiled once        |
+| Slower performance          | Faster than Statement              | Fastest                        |
+| Less secure                 | More secure                        | More secure                    |
+| SQL Injection possible      | SQL Injection not possible         | SQL Injection not possible     |
+
+
+
+⭐ Easy Memory Trick 🧠
+
+Statement → Simple
+PreparedStatement → Secure + Fast
+CallableStatement → Stored Procedure
+
+⭐ One-line Exam Answer
+
+Statement is used for simple queries, PreparedStatement is used for parameterized queries with better 
+performance and security, and CallableStatement is used to execute stored procedures.
+      
+
+
+----------------------------------------------------------------------------------------------------
+
+
+⭐ Statement vs PreparedStatement vs CallableStatement
+
+✅ Full Examples
+
+
+1️⃣ Statement – Full Example
+
+👉 Used for simple SQL queries (no parameters)
+
+import java.sql.*;
+
+class StatementExample {
+    public static void main(String[] args) {
+
+        try {
+            // Load Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Create Connection
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/college",
+                "root",
+                "root"
+            );
+
+            // Create Statement
+            Statement st = con.createStatement();
+
+            // Execute SQL Query
+            ResultSet rs = st.executeQuery("SELECT * FROM student");
+
+            // Process Result
+            while (rs.next()) {
+                System.out.println(
+                    rs.getInt("id") + " " +
+                    rs.getString("name")
+                );
+            }
+
+            // Close resources
+            rs.close();
+            st.close();
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+
+
+📌 Use: Simple SELECT queries
+📌 Problem: Not secure, slow for repeated queries
+
+
+
+2️⃣ PreparedStatement – Full Example ⭐⭐
+
+👉 Used for parameterized queries (recommended)
+
+import java.sql.*;
+
+class PreparedStatementExample {
+    public static void main(String[] args) {
+
+        try {
+            // Load Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Create Connection
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/college",
+                "root",
+                "root"
+            );
+
+            // Create PreparedStatement
+            PreparedStatement ps = con.prepareStatement(
+                "SELECT * FROM student WHERE id = ?"
+            );
+
+            // Set parameter value
+            ps.setInt(1, 101);
+
+            // Execute Query
+            ResultSet rs = ps.executeQuery();
+
+            // Process Result
+            while (rs.next()) {
+                System.out.println(
+                    rs.getInt("id") + " " +
+                    rs.getString("name")
+                );
+            }
+
+            // Close resources
+            rs.close();
+            ps.close();
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+
+
+📌 Use: Secure, fast, reusable queries
+📌 Best choice for real projects
+
+
+
+
+3️⃣ CallableStatement – Full Example ⭐⭐⭐
+
+👉 Used to call stored procedures
+
+🔹 Stored Procedure (MySQL)
+
+CREATE PROCEDURE getStudent(IN sid INT)
+BEGIN
+    SELECT * FROM student WHERE id = sid;
+END;
+
+
+🔹 Java Code
+
+import java.sql.*;
+
+class CallableStatementExample {
+    public static void main(String[] args) {
+
+        try {
+            // Load Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Create Connection
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/college",
+                "root",
+                "root"
+            );
+
+            // Create CallableStatement
+            CallableStatement cs = con.prepareCall(
+                "{call getStudent(?)}"
+            );
+
+            // Set input parameter
+            cs.setInt(1, 101);
+
+            // Execute
+            ResultSet rs = cs.executeQuery();
+
+            // Process Result
+            while (rs.next()) {
+                System.out.println(
+                    rs.getInt("id") + " " +
+                    rs.getString("name")
+                );
+            }
+
+            // Close resources
+            rs.close();
+            cs.close();
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+
+
+📌 Use: Complex database logic, business rules
+      `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 6,
+      question: "6. Short question.",
       answer: "",
-      codeExample: ``
+      codeExample: `
+JDBC stands for → Java Database Connectivity
+Thin driver → Best performance
+PreparedStatement → Precompiled & secure
+CallableStatement → Stored procedures
+ResultSetMetaData → Data about data
+ACID → Atomicity, Consistency, Isolation, Durability
+      
+      `
     },
     {
       id: 1,
