@@ -1009,16 +1009,286 @@ ACID → Atomicity, Consistency, Isolation, Durability
       codeExample: ``
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 1.1,
+      question: "1. JDBC Connectivity Develop a java application using concept of JDBC for user login. User will enter username and password. Application will match for the same in database table. If match is found then display message 'Successful Login' and if not found then display message 'Invalid Username and password'.",
       answer: "",
-      codeExample: ``
+      codeExample: `
+command write for 
+
+compile : javac filename.java  
+run: java -cp ".;mysql-connector-j-9.6.0.jar" filename
+
+
+
+🔹 Step 1: Database Table (MySQL Example)
+
+Assume database name: java
+Table name: users
+
+CREATE TABLE users (
+    username VARCHAR(50),
+    password VARCHAR(50)
+);
+
+
+
+Insert sample data:
+
+INSERT INTO users VALUES ('admin', '1234');
+INSERT INTO users VALUES ('raj', 'raj123');
+
+
+
+
+Java program LoginApp.java :
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class LoginApp {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Taking input from user
+        System.out.print("Enter Username: ");
+        String uname = sc.nextLine();
+
+        System.out.print("Enter Password: ");
+        String pass = sc.nextLine();
+
+        try {
+            // 1. Load JDBC Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // 2. Create Connection
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/java",
+                "root",
+                ""
+            );
+
+            // 3. SQL Query
+            String sql = "SELECT * FROM users WHERE username=? AND password=?";
+
+            // 4. Prepare Statement
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, uname);   // set username
+            ps.setString(2, pass);    // set password
+
+            // 5. Execute Query
+            ResultSet rs = ps.executeQuery();
+
+            // 6. Check Result
+            if (rs.next()) {
+                System.out.println("Successful Login");
+            } else {
+                System.out.println("Invalid Username and password");
+            }
+
+            // 7. Close Connection
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+
+
+Expected Output
+
+Enter Username: raj
+Enter Password: raj123
+Successful Login
+
+
+      `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 2.2,
+      question: "2. JDBC Connectivity & CRUD Operations Develop a Menu driven java application for student information which will create the table with appropriate columns. Menu will contain the options like insert, update and delete. Based on the option, data will be inserted or updated or deleted from table based on student id (student_id will be primary key). Display appropriate message for each operation.",
       answer: "",
-      codeExample: ``
+      codeExample: `
+🔹 Database Details (MySQL)
+
+Database name: java
+
+
+Student Table
+
+CREATE TABLE student (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    course VARCHAR(50),
+    marks INT
+);
+
+
+
+🔹 Complete Menu-Driven JDBC Program (CRUD)
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class StudentCRUD {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            // 1. Load Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // 2. Create Connection
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/java",
+                "root",
+                ""   // empty password (XAMPP)
+            );
+
+            while (true) {
+
+                System.out.println("\n----- STUDENT MENU -----");
+                System.out.println("1. Insert Student");
+                System.out.println("2. Update Student");
+                System.out.println("3. Delete Student");
+                System.out.println("4. Exit");
+                System.out.print("Enter choice: ");
+
+                int choice = sc.nextInt();
+
+                switch (choice) {
+
+                    // INSERT
+                    case 1:
+                        System.out.print("Enter Student ID: ");
+                        int id = sc.nextInt();
+                        sc.nextLine();
+
+                        System.out.print("Enter Name: ");
+                        String name = sc.nextLine();
+
+                        System.out.print("Enter Course: ");
+                        String course = sc.nextLine();
+
+                        System.out.print("Enter Marks: ");
+                        int marks = sc.nextInt();
+
+                        String insertSql =
+                                "INSERT INTO student VALUES (?, ?, ?, ?)";
+
+                        PreparedStatement ps1 =
+                                con.prepareStatement(insertSql);
+
+                        ps1.setInt(1, id);
+                        ps1.setString(2, name);
+                        ps1.setString(3, course);
+                        ps1.setInt(4, marks);
+
+                        int i = ps1.executeUpdate();
+
+                        if (i > 0)
+                            System.out.println("Student Inserted Successfully");
+                        else
+                            System.out.println("Insert Failed");
+                        break;
+
+                    // UPDATE
+                    case 2:
+                        System.out.print("Enter Student ID to Update: ");
+                        int uid = sc.nextInt();
+                        sc.nextLine();
+
+                        System.out.print("Enter New Course: ");
+                        String newCourse = sc.nextLine();
+
+                        String updateSql =
+                                "UPDATE student SET course=? WHERE student_id=?";
+
+                        PreparedStatement ps2 =
+                                con.prepareStatement(updateSql);
+
+                        ps2.setString(1, newCourse);
+                        ps2.setInt(2, uid);
+
+                        int u = ps2.executeUpdate();
+
+                        if (u > 0)
+                            System.out.println("Student Updated Successfully");
+                        else
+                            System.out.println("Student ID Not Found");
+                        break;
+
+                    // DELETE
+                    case 3:
+                        System.out.print("Enter Student ID to Delete: ");
+                        int did = sc.nextInt();
+
+                        String deleteSql =
+                                "DELETE FROM student WHERE student_id=?";
+
+                        PreparedStatement ps3 =
+                                con.prepareStatement(deleteSql);
+
+                        ps3.setInt(1, did);
+
+                        int d = ps3.executeUpdate();
+
+                        if (d > 0)
+                            System.out.println("Student Deleted Successfully");
+                        else
+                            System.out.println("Student ID Not Found");
+                        break;
+
+                    case 4:
+                        System.out.println("Thank You!");
+                        con.close();
+                        System.exit(0);
+
+                    default:
+                        System.out.println("Invalid Choice");
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+
+
+
+
+🔹 Sample Output
+----- STUDENT MENU -----
+1. Insert Student
+2. Update Student
+3. Delete Student
+4. Exit
+Enter choice: 1
+
+Enter Student ID: 101
+Enter Name: Raj
+Enter Course: Java
+Enter Marks: 85
+Student Inserted Successfully
+
+
+
+
+🧠 Viva Questions (Quick)
+
+Q1. What is CRUD?
+Create, Read, Update, Delete
+
+Q2. Why PreparedStatement?
+For security and performance
+
+Q3. What is Primary Key?
+Unique identifier for each record
+      `
     },
     {
       id: 1,
