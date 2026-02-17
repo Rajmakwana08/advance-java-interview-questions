@@ -1397,10 +1397,222 @@ Unique identifier for each record
       `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 3.3,
+      question: "3. Data Driven GUI Application: Develop an application using GUI for user registration. In first form user will enter the data for registration (e.g. Name, Birthdate, Email_id, Phone_No). When user clicks on submit button, data will be inserted into database and user will be redirected to another form. In this form data will be selected from database and displayed in proper format.",
       answer: "",
-      codeExample: ``
+      codeExample: `
+step 1:
+
+First you create one folder like DataDrivenGUIApplication.
+
+
+step 2:
+    
+Next create file structure like this:
+
+src
+ ├ DisplayServlet.java
+ ├ RegisterServlet.java
+ │
+WEB-INF
+ ├ classes
+ │   ├ RegisterServlet.class
+ │   └ DisplayServlet.class
+ │
+ └ lib
+ │   └ mysql-connector-j-9.6.0.jar
+ │
+ register.html
+
+
+step 3:
+
+Add your project in tomcate server like choos "Add Deployement" button
+-> select your project folder file and click No button to Edit
+
+
+step 4:
+
+compile your .java file and create .class file and past in classes folder:
+
+    javac -cp "C:\\xampp\\tomcat\\lib\\servlet-api.jar" filename.java
+
+
+step 5:
+
+start tomcat server
+
+
+step 6: 
+
+see to output:
+
+    http://localhost:8080/DataDrivenGUIApplication/register.html
+
+
+---------------------------------------------------------------------------------------
+
+
+
+Create Table inside the java database:
+
+CREATE TABLE registration (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    birthdate DATE,
+    email VARCHAR(50),
+    phone VARCHAR(20)
+);
+
+
+----------------------------------
+
+register.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+
+<h2>User Registration Form</h2>
+
+<form action="RegisterServlet" method="post">
+    Name: <input type="text" name="name"><br><br>
+    Birthdate: <input type="date" name="birthdate"><br><br>
+    Email: <input type="email" name="email"><br><br>
+    Phone: <input type="text" name="phone"><br><br>
+
+    <input type="submit" value="Register">
+</form>
+
+</body>
+</html>
+
+----------------------------------
+
+RegisterServlet.java
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import java.sql.*;
+
+@WebServlet("/RegisterServlet")
+public class RegisterServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+                          throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("name");
+        String birthdate = request.getParameter("birthdate");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/java",
+                "root",
+                ""
+            );
+
+            String sql = "INSERT INTO registration(name,birthdate,email,phone) VALUES(?,?,?,?)";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setString(2, birthdate);
+            ps.setString(3, email);
+            ps.setString(4, phone);
+
+            int i = ps.executeUpdate();
+
+            if(i > 0){
+                response.sendRedirect("DisplayServlet");
+            } else {
+                out.println("Registration Failed");
+            }
+
+            con.close();
+
+        } catch (Exception e) {
+            out.println(e);
+        }
+    }
+}
+
+----------------------------------
+
+DisplayServlet.java
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.sql.*;
+
+public class DisplayServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+                         throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        out.println("<h2>Registered Users</h2>");
+        out.println("<table border=1>");
+        out.println("<tr>");
+        out.println("<th>ID</th>");
+        out.println("<th>Name</th>");
+        out.println("<th>Birthdate</th>");
+        out.println("<th>Email</th>");
+        out.println("<th>Phone</th>");
+        out.println("</tr>");
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/java",
+                "root",
+                ""
+            );
+
+            Statement st = con.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT * FROM registration");
+
+            while (rs.next()) {
+                out.println("<tr>");
+                out.println("<td>" + rs.getInt(1) + "</td>");
+                out.println("<td>" + rs.getString(2) + "</td>");
+                out.println("<td>" + rs.getString(3) + "</td>");
+                out.println("<td>" + rs.getString(4) + "</td>");
+                out.println("<td>" + rs.getString(5) + "</td>");
+                out.println("</tr>");
+            }
+
+            out.println("</table>");
+            con.close();
+
+        } catch (Exception e) {
+            out.println(e);
+        }
+    }
+}
+
+
+
+
+      `
     },
     {
       id: 1,
