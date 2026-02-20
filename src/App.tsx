@@ -1615,6 +1615,184 @@ public class DisplayServlet extends HttpServlet {
       `
     },
     {
+      id: 4.4,
+      question: "4. A Data Driven Servlet Application Develop a data driven servlet application for user authentication. Also display header values of request object and response object.",
+      answer: "",
+      codeExample: `
+✅ ⭐ Full Project Folder Structure
+
+Inside the C:\\tomcat9\\apache-tomcat-9.0.115\\webapps
+
+DataDrivenAuthApp
+│
+├ login.html
+│
+├ WEB-INF
+│   │
+│   ├ classes
+│   │   └ AuthServlet.class
+│   │
+│   └ lib
+│       └ mysql-connector-j-9.6.0.jar
+│
+└ src   (optional - only for storing java files)
+    └ AuthServlet.java
+
+
+
+Compile your java code file:
+
+    javac -cp "C:\\xampp\\tomcat\\lib\\servlet-api.jar" AuthServlet.java
+
+    
+
+
+
+✅ STEP 1 — Database Table
+⭐ Create Table
+
+Run in MySQL:
+
+CREATE TABLE users (
+    username VARCHAR(50),
+    password VARCHAR(50)
+);
+
+⭐ Insert Sample Data
+
+INSERT INTO users VALUES('raj','raj123');
+
+
+✅ STEP 2 — Login HTML (login.html)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+
+<h2>User Login</h2>
+
+<form action="AuthServlet" method="post">
+    Username: <input type="text" name="uname"><br><br>
+    Password: <input type="password" name="pass"><br><br>
+
+    <input type="submit" value="Login">
+</form>
+
+</body>
+</html>
+
+
+
+
+✅ STEP 3 — ⭐ Main Servlet (AuthServlet.java)
+
+👉 Authentication
+👉 Header Display
+
+⭐ AuthServlet.java (FULL WORKING)
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import java.sql.*;
+import java.util.*;
+
+@WebServlet("/AuthServlet")
+public class AuthServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+                          throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        String uname = request.getParameter("uname");
+        String pass = request.getParameter("pass");
+
+        try {
+
+            // Load Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // DB Connection
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/java",
+                "root",
+                ""
+            );
+
+            // SQL Query
+            String sql = "SELECT * FROM users WHERE username=? AND password=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, uname);   // username
+            ps.setString(2, pass);    // password
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+
+                out.println("<h2>Login Successful</h2>");
+
+                //  Request Headers
+                out.println("<h3>Request Headers</h3>");
+
+                Enumeration reqHeader = request.getHeaderNames();
+
+                while(reqHeader.hasMoreElements()) {
+                    String name = (String) reqHeader.nextElement();
+                    out.println(name + " : " + request.getHeader(name) + "<br>");
+                }
+
+                //  Response Headers
+                out.println("<h3>Response Headers</h3>");
+
+                Collection<String> resHeader = response.getHeaderNames();
+
+                for(String header : resHeader) {
+                    out.println(header + " : " + response.getHeader(header) + "<br>");
+                }
+
+            } else {
+                out.println("<h2>Invalid Username or Password</h2>");
+            }
+
+            con.close();
+
+        } catch(Exception e) {
+            out.println(e);
+        }
+    }
+}
+
+
+
+
+
+✅ Final Run
+
+http://localhost:8080/ProjectName/login.html
+      `
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+
+    {
       id: 1,
       question: "1. ",
       answer: "",
