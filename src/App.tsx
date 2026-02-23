@@ -1780,16 +1780,283 @@ http://localhost:8080/ProjectName/login.html
       `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 5.5,
+      question: "5. Servlet - Session Management Develop a servlet application for implementing student grading system. In this system on first page student will enter his data (name, id and department). By clicking on next button he will be redirected to another page. On the second page he will enter marks of all 6 subjects. By clicking on 'Generate result' he will be redirected to next page. On this page all information of student will be displayed along with the result (pass or fail) in appropriate color. Also display the name of student on each page he visits. (Use session management)",
       answer: "",
-      codeExample: ``
+      codeExample: `
+create this folder inside "tomcat/webapps/"
+
+
+✅ Folder Structure
+
+StudentGradingApp 
+├ marks.html
+├ student.html
+│
+├ WEB-INF
+│   ├ classes
+│   │   ├ StudentServlet.class
+│   │   ├ MarksServlet.class
+│   │   └ ResultServlet.class
+│   │
+│   └ lib
+│
+└ src
+    ├ StudentServlet.java
+    ├ MarksServlet.java
+    └ ResultServlet.java
+
+
+✅ Compile Command
+
+javac -cp "C:\\xampp\\tomcat\\lib\\servlet-api.jar" filename.java
+
+
+Run project to used this url:
+
+http://localhost:8080/foldername/filename.html
+
+
+student.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+</head>
+<body>
+
+<h2>Enter Student Details</h2>
+
+<form action="StudentServlet" method="post">
+    Name: <input type="text" name="name"><br><br>
+    ID: <input type="text" name="id"><br><br>
+    Department: <input type="text" name="dept"><br><br>
+
+    <input type="submit" value="Next">
+</form>
+
+</body>
+</html>
+      
+
+
+marks.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enter Marks</title>
+</head>
+<body>
+
+<h2>Enter Marks (6 Subjects)</h2>
+
+<form action="MarksServlet" method="post">
+    Subject1: <input type="number" name="m1"><br><br>
+    Subject2: <input type="number" name="m2"><br><br>
+    Subject3: <input type="number" name="m3"><br><br>
+    Subject4: <input type="number" name="m4"><br><br>
+    Subject5: <input type="number" name="m5"><br><br>
+    Subject6: <input type="number" name="m6"><br><br>
+
+    <input type="submit" value="Generate Result">
+</form>
+
+</body>
+</html>
+
+
+
+StudentServlet.java
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("/StudentServlet")
+public class StudentServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+                          throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+
+        session.setAttribute("name", request.getParameter("name"));
+        session.setAttribute("id", request.getParameter("id"));
+        session.setAttribute("dept", request.getParameter("dept"));
+
+        response.sendRedirect("marks.html");
+    }
+}
+
+
+
+MarksServlet.java
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("/MarksServlet")
+public class MarksServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+                          throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+
+        session.setAttribute("m1", request.getParameter("m1"));
+        session.setAttribute("m2", request.getParameter("m2"));
+        session.setAttribute("m3", request.getParameter("m3"));
+        session.setAttribute("m4", request.getParameter("m4"));
+        session.setAttribute("m5", request.getParameter("m5"));
+        session.setAttribute("m6", request.getParameter("m6"));
+
+        response.sendRedirect("ResultServlet");
+    }
+}
+
+
+
+ResultServlet.java
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("/ResultServlet")
+public class ResultServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+                         throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        HttpSession session = request.getSession();
+
+        String name = (String) session.getAttribute("name");
+        String id = (String) session.getAttribute("id");
+        String dept = (String) session.getAttribute("dept");
+
+        int m1 = Integer.parseInt((String)session.getAttribute("m1"));
+        int m2 = Integer.parseInt((String)session.getAttribute("m2"));
+        int m3 = Integer.parseInt((String)session.getAttribute("m3"));
+        int m4 = Integer.parseInt((String)session.getAttribute("m4"));
+        int m5 = Integer.parseInt((String)session.getAttribute("m5"));
+        int m6 = Integer.parseInt((String)session.getAttribute("m6"));
+
+        int total = m1 + m2 + m3 + m4 + m5 + m6;
+        double avg = total / 6.0;
+
+        boolean pass = (m1>=35 && m2>=35 && m3>=35 && 
+                        m4>=35 && m5>=35 && m6>=35);
+
+        out.println("<html><body>");
+
+        out.println("<h2>Welcome " + name + "</h2>");
+
+        out.println("<h3>Student Information</h3>");
+        out.println("ID: " + id + "<br>");
+        out.println("Department: " + dept + "<br>");
+        out.println("Total: " + total + "<br>");
+        out.println("Average: " + avg + "<br>");
+
+        if(pass) {
+            out.println("<h2 style='color:green'>Result: PASS</h2>");
+        } else {
+            out.println("<h2 style='color:red'>Result: FAIL</h2>");
+        }
+
+        out.println("</body></html>");
+    }
+}
+`
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 6.6,
+      question: "6. Servlet - Request Redirection  Develop an application for the following: User should be redirected to the URL entered in location text box.",
       answer: "",
-      codeExample: ``
+      codeExample: `
+📁 Folder Structure
+
+RedirectApp
+│
+├ redirect.html
+│
+├ WEB-INF
+│   ├ classes
+│   │   └ RedirectServlet.class
+│   │
+│   └ lib
+│
+└ src
+    └ RedirectServlet.java
+
+
+compile the code
+
+javac -cp "C:\\xampp\\tomcat\\lib\\servlet-api.jar" RedirectServlet.java
+
+
+
+redirect.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Redirect</title>
+</head>
+<body>
+
+<h2>Enter URL to Redirect</h2>
+
+<form action="RedirectServlet" method="post">
+    Enter URL: <input type="text" name="url" size="40">
+    <br><br>
+    <input type="submit" value="Go">
+</form>
+
+</body>
+</html>
+
+
+
+RedirectServlet.java
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("/RedirectServlet")
+public class RedirectServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+                          throws ServletException, IOException {
+
+        String url = request.getParameter("url");
+
+        if(url != null && !url.isEmpty()) {
+
+            // If user does not write http, add it
+            if(!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "http://" + url;
+            }
+
+            response.sendRedirect(url);
+        }
+    }
+}
+      `
     },
 
     {
