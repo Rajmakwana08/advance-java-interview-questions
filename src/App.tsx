@@ -2058,7 +2058,172 @@ public class RedirectServlet extends HttpServlet {
 }
       `
     },
+    {
+      id: 7.7,
+      question: "7. JSP - User Authentication Develop a data driven JSP application for user authentication",
+      answer: "",
+      codeExample: `
+✅ Folder Structure
+JSPAuthApp
+│
+├ login.jsp
+├ check.jsp
+│
+└ WEB-INF
+    └ lib
+        └ mysql-connector-j-9.6.0.jar
 
+
+
+✅ STEP 1 — Database Table
+
+Run in MySQL:
+
+CREATE TABLE users (
+    username VARCHAR(50),
+    password VARCHAR(50)
+);
+
+Insert sample data:
+
+INSERT INTO users VALUES('raj','raj123');
+
+
+
+login.jsp
+
+<%@ page language="java" %>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+
+<h2>User Login</h2>
+
+<form action="check.jsp" method="post">
+    Username: <input type="text" name="uname"><br><br>
+    Password: <input type="password" name="pass"><br><br>
+
+    <input type="submit" value="Login">
+</form>
+
+</body>
+</html>
+
+
+
+check.jsp
+
+<%@ page import="java.sql.*" %>
+
+<html>
+<body>
+
+<%
+    String uname = request.getParameter("uname");
+    String pass = request.getParameter("pass");
+
+    try {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        Connection con = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/java",
+            "root",
+            ""
+        );
+
+        String sql = "SELECT * FROM users WHERE username=? AND password=?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setString(1, uname);
+        ps.setString(2, pass);
+
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()) {
+%>
+            <h2 style="color:green">Login Successful</h2>
+<%
+        } else {
+%>
+            <h2 style="color:red">Invalid Username or Password</h2>
+<%
+        }
+
+        con.close();
+
+    } catch(Exception e) {
+        out.println(e);
+    }
+%>
+
+</body>
+</html>
+
+
+
+✅ How to Run
+
+Place folder inside:
+
+C:\\xampp\\tomcat\\webapps\
+
+Then open:
+
+http://localhost:8080/JSPAuthApp/login.jsp
+      `
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
     {
       id: 1,
       question: "1. ",
