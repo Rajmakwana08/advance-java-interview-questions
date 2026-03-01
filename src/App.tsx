@@ -949,28 +949,647 @@ ACID → Atomicity, Consistency, Isolation, Durability
       `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 11,
+      question: "11. Explain Servlet Architecture & Execution Process.",
+      answer: "📌 Very common long question",
+      codeExample: `
+⭐ What is Servlet?
+
+A Servlet is a Java program that runs on a web server and handles client requests.
+
+👉 It is used to create dynamic web applications.
+
+
+⭐ Servlet Architecture
+
+Servlet architecture shows how client request is processed by servlet using web container.
+
+
+⭐ Main Components
+
+1️⃣ Client (Browser)
+2️⃣ Web Server
+3️⃣ Servlet Container (Tomcat)
+4️⃣ Servlet
+5️⃣ Database (optional)
+
+
+
+⭐ Servlet Architecture Diagram (Important ⭐)
+
+        +-------------+
+        |   Client    |
+        |  (Browser)  |
+        +------+------+
+               |
+               | HTTP Request
+               v
+        +-------------+
+        | Web Server  |
+        +------+------+
+               |
+               v
+        +----------------------+
+        | Servlet Container    |
+        |  (Tomcat)            |
+        +----------+-----------+
+                   |
+                   v
+              +----------+
+              | Servlet  |
+              +----------+
+                   |
+                   v
+             +------------+
+             | Database   |
+             +------------+
+
+               ^
+               |
+        HTTP Response
+
+
+
+⭐ 6 Steps of Servlet Execution Process ⭐⭐⭐
+
+
+1️⃣ Client Sends Request
+
+User sends request from browser using URL.
+
+Example:
+
+    http://localhost:8080/MyApp
+
+
+2️⃣ Web Server Receives Request
+
+Web server receives HTTP request and forwards it to Servlet Container.
+
+
+3️⃣ Servlet Container Loads Servlet
+
+If servlet is not loaded:
+
+    Container loads servlet class
+    Creates servlet object
+
+
+4️⃣ init() Method is Called (Only Once)
+
+Container calls:
+
+    init()
+
+👉 Used for initialization (database connection etc.)
+
+
+5️⃣ service() Method is Called
+
+For every request:
+
+    service()
+
+👉 It calls:
+
+doGet() → For GET request
+doPost() → For POST request
+
+
+6️⃣ destroy() Method is Called
+
+When server stops:
+
+    destroy()
+
+👉 Used to release resources
+
+
+⭐ Execution Flow Summary
+
+Client → Server → Container → init()
+                             → service()
+                             → doGet()/doPost()
+                             → destroy()
+
+
+⭐ Servlet Life Cycle Methods (Very Important)
+
+| Method           | Purpose               |
+| ---------------- | --------------------- |
+| init()           | Initialization (once) |
+| service()        | Handle request        |
+| doGet()/doPost() | Process request       |
+| destroy()        | Cleanup               |
+
+
+⭐ One-Line Exam Answer
+
+Servlet architecture consists of client, web server, servlet container and servlet. The servlet execution 
+process includes loading, initialization, service handling, and destruction.
+
+
+🧠 Memory Trick
+
+Load → init → service → destroy
+
+
+
+⭐ Simple Servlet Example Program
+
+// Import required packages
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+// Extend HttpServlet
+public class HelloServlet extends HttpServlet {
+
+    // Step 1: init() method (called only once)
+    public void init() throws ServletException {
+        System.out.println("Servlet is initialized...");
+    }
+
+    // Step 2: doGet() method (called for each request)
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+                      throws ServletException, IOException {
+
+        // Set response type
+        response.setContentType("text/html");
+
+        // Create PrintWriter object
+        PrintWriter out = response.getWriter();
+
+        // Send response to browser
+        out.println("<html><body>");
+        out.println("<h2>Hello, Welcome to Servlet!</h2>");
+        out.println("</body></html>");
+
+        System.out.println("Request processed...");
+    }
+
+    // Step 3: destroy() method (called once when server stops)
+    public void destroy() {
+        System.out.println("Servlet is destroyed...");
+    }
+}
+
+
+
+⭐ Step 2: web.xml Configuration
+<web-app>
+
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>HelloServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+
+
+
+⭐ How It Works
+
+1️⃣ User enters:
+
+http://localhost:8080/MyApp/hello
+
+
+2️⃣ Servlet container:
+
+Loads servlet
+Calls init()
+Calls doGet()
+Sends response
+Calls destroy() when server stops
+
+
+⭐ Output in Browser
+
+Hello, Welcome to Servlet!
+
+
+⭐ Life Cycle Flow (Program Based)
+
+Load Servlet
+     ↓
+init()  (only once)
+     ↓
+doGet() / doPost()  (every request)
+     ↓
+destroy() (when server stops)
+
+
+⭐ Viva Important Points
+
+Servlet extends HttpServlet
+doGet() handles GET request
+PrintWriter sends output to browser
+init() runs once
+destroy() runs once
+
+
+
+⭐ Important Note (Modern Concept)
+
+In newer versions (Servlet 3.0+):
+We can use annotations instead of web.xml.
+
+Example:
+
+    @WebServlet("/hello")
+
+So web.xml is optional in modern applications.
+
+
+⭐ One-Line Viva Answer
+
+👉 web.xml tells the server which servlet handles which URL.
+`
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 12,
+      question: "12. Explain Servlet Life Cycle with methods -> init(), service(), destroy()",
+      answer: "📌 100% exam question",
+      codeExample: `
+⭐ Servlet Life Cycle
+
+The Servlet Life Cycle describes how a servlet is:
+
+👉 Loaded
+👉 Initialized
+👉 Handles requests
+👉 Destroyed
+      
+It is controlled by the Servlet Container (Tomcat).
+
+
+⭐ Life Cycle Diagram (Important for Exam ⭐)
+
+        1. Loading
+            ↓
+        2. init()   (Called once)
+            ↓
+        3. service() (Called for each request)
+            ↓
+        4. destroy() (Called once)
+
+
+⭐ 1️⃣ init() Method
+
+🔹 Meaning:
+
+Called only once when servlet is loaded.
+
+🔹 Purpose:
+
+Initialize resources
+Open database connection
+Load configuration
+
+🔹 Syntax:
+
+public void init() throws ServletException
+
+🔹 Example:
+
+public void init() {
+    System.out.println("Servlet Initialized");
+}
+
+📌 Runs only one time.
+      
+
+
+⭐ 2️⃣ service() Method
+🔹 Meaning:
+
+Called every time client sends request.
+
+🔹 Purpose:
+
+Processes request
+
+Generates response
+
+🔹 Syntax:
+
+public void service(HttpServletRequest req,
+                    HttpServletResponse res)
+
+
+🔹 Inside service():
+
+It calls:
+
+doGet() → For GET request
+doPost() → For POST request
+
+
+🔹 Example:
+
+public void service(HttpServletRequest req,
+                    HttpServletResponse res)
+        throws ServletException, IOException {
+    System.out.println("Request handled");
+}
+
+In HttpServlet, service() method internally calls doGet() and doPost(), so normally we override doGet() or 
+doPost() instead of service().
+
+
+📌 Runs multiple times (for each request).
+
+
+
+⭐ 3️⃣ destroy() Method
+🔹 Meaning:
+
+Called only once before servlet is removed.
+
+🔹 Purpose:
+
+Close database connection
+Release resources
+
+🔹 Syntax:
+
+public void destroy()
+
+🔹 Example:
+
+public void destroy() {
+    System.out.println("Servlet Destroyed");
+}
+
+📌 Runs only once when server stops.
+
+
+
+⭐ Complete Life Cycle Example
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class LifeCycleServlet extends HttpServlet {
+
+    public void init() {
+        System.out.println("init() called");
+    }
+
+    public void service(HttpServletRequest req,
+                        HttpServletResponse res)
+            throws IOException {
+        System.out.println("service() called");
+    }
+
+    public void destroy() {
+        System.out.println("destroy() called");
+    }
+}
+
+
+⭐ Life Cycle Summary Table
+
+| Method    | Called When        | How Many Times |
+| --------- | ------------------ | -------------- |
+| init()    | When servlet loads | Once           |
+| service() | For every request  | Multiple times |
+| destroy() | Before removal     | Once           |
+
+
+⭐ One-Line Exam Answer
+
+Servlet life cycle consists of init(), service(), and destroy() methods managed by the servlet container.
+
+
+🧠 Memory Trick
+
+I → S → D
+
+init → service → destroy
+`
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 13,
+      question: "13. Differentiate between CGI and Servlet",
       answer: "",
-      codeExample: ``
+      codeExample: `
+⭐ Difference Between CGI and Servlet
+
+| CGI                                  | Servlet                                   |
+| ------------------------------------ | ----------------------------------------- |
+| Stands for Common Gateway Interface  | Java-based server-side technology         |
+| Creates new process for each request | Uses single process with multiple threads |
+| Slow performance                     | Faster performance                        |
+| Written in C, C++, Perl etc.         | Written in Java                           |
+| Platform dependent                   | Platform independent                      |
+| High memory usage                    | Low memory usage                          |
+| Less secure                          | More secure                               |
+| Difficult to maintain                | Easy to maintain                          |
+
+
+⭐ Why CGI is Slow?
+
+In CGI:
+
+For every client request:
+
+    New process is created
+    Memory is allocated
+    Process is destroyed
+
+This makes it slow and heavy.
+
+
+⭐ Why Servlet is Fast?
+
+In Servlet:
+
+    Only one instance is created
+    Multiple threads handle requests
+    No new process each time
+
+👉 That’s why servlet is much faster.
+
+
+⭐ Simple Diagram (Easy to Draw)
+
+CGI Model
+
+Client → Server → New Process → Response
+Client → Server → New Process → Response
+
+
+Servlet Model
+
+Client → Server → Single Servlet Instance
+                     |
+                   Threads
+                     |
+                  Response
+
+
+⭐ One-Line Exam Answer
+
+CGI creates a new process for every request, while Servlet uses multithreading in a single process, making 
+it faster and more efficient.
+
+🧠 Memory Trick
+
+CGI → Process
+Servlet → Thread
+
+Process = Heavy
+Thread = Light                  `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 14,
+      question: "14. Explain GenericServlet and HttpServlet 👉 Difference 👉 doGet() vs doPost()",
+      answer: "📌 Important for theory + viva",
+      codeExample: `
+⭐ 1️⃣ GenericServlet
+🔹 Meaning
+
+GenericServlet is an abstract class in Java used to create servlets that are protocol-independent.
+
+📌 It works with any protocol (HTTP, FTP etc.)
+
+🔹 Package
+
+javax.servlet
+
+🔹 Important Point
+You must override:
+
+service()
+
+Because GenericServlet does not support doGet() or doPost().
+
+
+🔹 Example
+
+import java.io.*;
+import javax.servlet.*;
+
+public class MyGenericServlet extends GenericServlet {
+
+    public void service(ServletRequest req,
+                        ServletResponse res)
+            throws IOException {
+
+        PrintWriter out = res.getWriter();
+        out.println("Hello from GenericServlet");
+    }
+}
+
+
+
+⭐ 2️⃣ HttpServlet
+🔹 Meaning
+
+HttpServlet is a subclass of GenericServlet used to create HTTP-based web applications.
+
+📌 It works only with HTTP protocol.
+
+
+🔹 Package
+
+javax.servlet.http
+
+🔹 Important Point
+
+You override:
+
+    doGet()
+    doPost()
+
+Instead of service().
+
+
+🔹 Example
+
+import java.io.*;
+import javax.servlet.http.*;
+
+public class MyHttpServlet extends HttpServlet {
+
+    public void doGet(HttpServletRequest req,
+                      HttpServletResponse res)
+            throws IOException {
+
+        PrintWriter out = res.getWriter();
+        out.println("Hello from HttpServlet");
+    }
+}
+
+
+⭐ Difference Between GenericServlet and HttpServlet
+
+| GenericServlet                        | HttpServlet                                   |
+| ------------------------------------- | --------------------------------------------- |
+| Protocol independent                  | HTTP specific                                 |
+| Overrides service()                   | Overrides doGet() / doPost()                  |
+| Uses ServletRequest & ServletResponse | Uses HttpServletRequest & HttpServletResponse |
+| Less powerful                         | More powerful                                 |
+| Used rarely                           | Used commonly                                 |
+
+
+⭐ doGet() vs doPost()
+
+| doGet()                  | doPost()              |
+| ------------------------ | --------------------- |
+| Used for retrieving data | Used for sending data |
+| Data visible in URL      | Data hidden in body   |
+| Limited data size        | Large data allowed    |
+| Less secure              | More secure           |
+| Used for search pages    | Used for login forms  |
+
+
+⭐ Example Difference
+
+doGet()
+
+public void doGet(HttpServletRequest req,
+                  HttpServletResponse res)
+
+doPost()
+
+public void doPost(HttpServletRequest req,
+                   HttpServletResponse res)
+
+
+⭐ Simple Diagram
+
+GenericServlet
+        ↑
+   HttpServlet
+        ↑
+   doGet() / doPost()
+
+
+⭐ One-Line Exam Answer
+
+GenericServlet is protocol-independent and overrides service(), while HttpServlet is HTTP-specific and 
+overrides doGet() and doPost() methods.
+
+
+🧠 Memory Trick
+
+Generic → General
+HTTP → Web
+
+GET → Get data
+POST → Send data
+      
+      `
     },
     {
       id: 1,
