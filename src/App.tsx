@@ -2796,10 +2796,156 @@ http://localhost:8080/JSPAuthApp/login.jsp
       `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 8.8,
+      question: "8. Practical 8: JSP - Java Beans     Develop an application for Bank Account information using Java Beans. This application will perform various operation on bank account like withdraw, deposit and displaying the information.",
       answer: "",
-      codeExample: ``
+      codeExample: `
+
+Final Project Structure (Very Important)
+
+DataDrivenBankApp
+│
+├── index.jsp
+│
+└── WEB-INF
+     ├── web.xml
+     └── classes
+          └── com
+               └── bank
+                    ├── BankBean.java
+                    └── BankBean.class
+
+
+Compile and run code:
+
+javac BankBean.java
+
+http://localhost:8080/JSPBankApp/
+
+
+
+index.jsp
+
+<%@ page import="com.bank.BankBean" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<jsp:useBean id="bank" class="com.bank.BankBean" scope="session"/>
+
+<html>
+<head>
+ <title>Bank Account Application</title>
+</head>
+<body>
+
+<h2>Bank Account Information</h2>
+
+<form method="post">
+ Account Holder Name:
+ <input type="text" name="name" required><br><br>
+
+ Amount:
+ <input type="number" name="amount" step="0.01"><br><br>
+
+ <input type="submit" name="action" value="Deposit">
+ <input type="submit" name="action" value="Withdraw">
+</form>
+
+<%
+ String name = request.getParameter("name");
+ String amountStr = request.getParameter("amount");
+ String action = request.getParameter("action");
+
+ if (name != null) {
+     bank.setAccountHolder(name);
+ }
+
+ if (amountStr != null && action != null) {
+
+     double amount = Double.parseDouble(amountStr);
+
+     if (action.equals("Deposit")) {
+         bank.deposit(amount);
+     }
+     else if (action.equals("Withdraw")) {
+         bank.withdraw(amount);
+     }
+ }
+%>
+
+<h3>Account Details</h3>
+
+Account Holder: <%= bank.getAccountHolder() %> <br>
+Balance: <%= bank.getBalance() %>
+
+</body>
+</html>
+      
+
+
+web.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>
+
+
+
+BankBean.java
+
+package com.bank;   // package name must match folder structure
+
+import java.io.Serializable;
+
+public class BankBean implements Serializable {
+
+    private String accountHolder;
+    private double balance;
+
+    // No-argument constructor (VERY IMPORTANT for JavaBean)
+    public BankBean() {
+        balance = 0.0;   // initial balance
+    }
+
+    // Getter for account holder
+    public String getAccountHolder() {
+        return accountHolder;
+    }
+
+    // Setter for account holder
+    public void setAccountHolder(String accountHolder) {
+        this.accountHolder = accountHolder;
+    }
+
+    // Getter for balance
+    public double getBalance() {
+        return balance;
+    }
+
+    // Deposit method
+    public void deposit(double amount) {
+        if(amount > 0) {
+            balance = balance + amount;
+        }
+    }
+
+    // Withdraw method
+    public void withdraw(double amount) {
+        if(amount > 0 && amount <= balance) {
+            balance = balance - amount;
+        }
+    }
+}
+      
+                    `
     },
     {
       id: 1,
