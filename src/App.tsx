@@ -1592,6 +1592,827 @@ POST → Send data
       `
     },
     {
+      id: 15,
+      question: "15. ⭐ 5️⃣ Explain Session Tracking Techniques in Servlets Cookies, Hidden Form Field, URL Rewriting, HttpSession ⭐⭐⭐",
+      answer: "📌 MOST IMPORTANT TOPIC 🔥",
+      codeExample: `
+⭐ What is Session Tracking?
+
+HTTP is a stateless protocol.
+
+👉 That means server does NOT remember previous request.
+
+
+So we use Session Tracking to:
+
+    ✔ Maintain user data
+    ✔ Remember login information
+    ✔ Store user activity
+
+
+⭐ 1️⃣ Cookies
+🔹 Meaning
+
+Cookies are small text files stored on client browser.
+Server sends cookie → Browser stores it → Sends back with next request.
+
+🔹 Example
+
+Cookie ck = new Cookie("username", "Raj");
+response.addCookie(ck);
+
+
+To read cookie:
+
+Cookie[] cookies = request.getCookies();
+
+
+🔹 Advantages
+
+✔ Simple
+✔ Automatic sending
+
+🔹 Disadvantages
+
+❌ Stored on client
+❌ Can be disabled
+
+
+
+⭐ 2️⃣ Hidden Form Field
+🔹 Meaning
+
+Data is stored in hidden input field inside HTML form.
+
+🔹 Example
+
+<input type="hidden" name="username" value="Raj">
+
+
+Retrieve in servlet:
+
+String name = request.getParameter("username");
+
+
+🔹 Advantages
+
+✔ Easy to implement
+
+🔹 Disadvantages
+
+❌ Works only with forms
+❌ Not secure
+
+
+
+⭐ 3️⃣ URL Rewriting
+🔹 Meaning
+
+Session data is added to URL.
+
+
+Example:
+
+http://localhost:8080/app?username=Raj
+
+
+🔹 Example
+
+response.sendRedirect("welcome?username=Raj");
+
+
+Get value:
+
+String name = request.getParameter("username");
+
+
+🔹 Advantages
+
+✔ Works when cookies disabled
+
+🔹 Disadvantages
+
+❌ Data visible in URL
+❌ Not secure
+
+
+
+⭐ 4️⃣ HttpSession ⭐⭐⭐ (Most Important)
+🔹 Meaning
+
+HttpSession stores data on server side.
+Best and most secure method.
+
+
+🔹 Example
+
+Create session:
+
+HttpSession session = request.getSession();
+session.setAttribute("username", "Raj");
+
+
+Get session value:
+
+String name = (String) session.getAttribute("username");
+
+
+Destroy session:
+
+session.invalidate();
+
+
+🔹 Advantages
+
+✔ Secure
+✔ Stored on server
+✔ Can store objects
+
+🔹 Disadvantages
+
+❌ Uses server memory
+
+
+⭐ Comparison Table
+
+| Technique     | Stored At | Secure | Used For              |
+| ------------- | --------- | ------ | --------------------- |
+| Cookies       | Client    | Medium | Login                 |
+| Hidden Field  | Client    | Low    | Form data             |
+| URL Rewriting | URL       | Low    | When cookies disabled |
+| HttpSession   | Server    | High   | Login, Shopping cart  |
+
+
+
+⭐ Simple Diagram
+
+Client ↔ Server
+   |
+Cookies / URL / Hidden Field
+   |
+HttpSession (Server Side Storage)
+
+
+⭐ One-Line Exam Answer
+
+Session tracking techniques are used to maintain user data across multiple requests in a web application.
+
+🧠 Memory Trick
+
+CHUH
+
+C → Cookies
+H → Hidden Field
+U → URL Rewriting
+H → HttpSession
+
+
+--------------------------------------------------------
+
+
+⭐ 1️⃣ Cookies – Full Example
+
+👉 First Servlet (Create Cookie)
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class CookieServlet1 extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        // Create Cookie
+        Cookie ck = new Cookie("username", "Raj");
+        response.addCookie(ck);
+
+        out.println("Cookie Created");
+        out.println("<a href='cookie2'>Go to Next</a>");
+    }
+}
+
+👉 Second Servlet (Read Cookie)
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class CookieServlet2 extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        PrintWriter out = response.getWriter();
+
+        Cookie[] cookies = request.getCookies();
+
+        for (Cookie c : cookies) {
+            if (c.getName().equals("username")) {
+                out.println("Welcome " + c.getValue());
+            }
+        }
+    }
+}
+
+
+
+⭐ 2️⃣ Hidden Form Field – Full Example
+
+👉 HTML Page
+
+<form action="hiddenServlet" method="get">
+    <input type="hidden" name="username" value="Raj">
+    <input type="submit" value="Submit">
+</form>
+
+👉 Servlet
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class HiddenServlet extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        String name = request.getParameter("username");
+
+        PrintWriter out = response.getWriter();
+        out.println("Welcome " + name);
+    }
+}
+
+
+
+⭐ 3️⃣ URL Rewriting – Full Example
+
+👉 First Servlet
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class URLServlet1 extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        PrintWriter out = response.getWriter();
+
+        out.println("<a href='url2?username=Raj'>Click Here</a>");
+    }
+}
+
+👉 Second Servlet
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class URLServlet2 extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        String name = request.getParameter("username");
+
+        PrintWriter out = response.getWriter();
+        out.println("Welcome " + name);
+    }
+}
+
+
+
+⭐ 4️⃣ HttpSession – Full Example ⭐⭐⭐
+
+👉 First Servlet (Create Session)
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class SessionServlet1 extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        HttpSession session = request.getSession();
+
+        session.setAttribute("username", "Raj");
+
+        PrintWriter out = response.getWriter();
+        out.println("Session Created");
+        out.println("<a href='session2'>Next</a>");
+    }
+}
+
+👉 Second Servlet (Get Session Data)
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class SessionServlet2 extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        HttpSession session = request.getSession(false);
+
+        PrintWriter out = response.getWriter();
+
+        if (session != null) {
+            String name = (String) session.getAttribute("username");
+            out.println("Welcome " + name);
+        } else {
+            out.println("No Session Found");
+        }
+    }
+}
+
+
+⭐ Which One is Best?
+
+✔ Cookies → Simple
+✔ Hidden Field → Only forms
+✔ URL Rewriting → When cookies disabled
+✔ HttpSession → ⭐ Most Secure & Recommended
+
+
+⭐ Viva Important Line
+
+HttpSession is the most commonly used session tracking technique because it stores data on the server 
+side.
+      `
+    },
+    {
+      id: 16,
+      question: "16. ⭐ 6️⃣ Explain RequestDispatcher and sendRedirect() or 👉 Difference between forward() and sendRedirect()",
+      answer: "",
+      codeExample: `
+⭐ 1️⃣ RequestDispatcher
+🔹 Meaning
+
+RequestDispatcher is used to:
+
+    👉 Forward request from one resource to another (Servlet/JSP/HTML)
+    👉 Include another resource’s output
+
+📌 It works on server side
+
+
+🔹 Methods
+
+forward()
+include()
+
+
+🔹 Example of forward()
+
+First Servlet
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class FirstServlet extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.setAttribute("name", "Raj");
+
+        RequestDispatcher rd =
+            request.getRequestDispatcher("second");
+
+        rd.forward(request, response);
+    }
+}
+
+
+Second Servlet
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class SecondServlet extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        String name = (String) request.getAttribute("name");
+
+        PrintWriter out = response.getWriter();
+        out.println("Welcome " + name);
+    }
+}
+
+
+
+
+⭐ 2️⃣ sendRedirect()
+🔹 Meaning
+
+sendRedirect() is used to:
+
+    👉 Redirect client to another resource
+
+📌 It works on client side
+
+
+🔹 Example
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class RedirectServlet extends HttpServlet {
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws IOException {
+
+        response.sendRedirect("https://www.google.com");
+    }
+}
+
+
+⭐ Difference Between forward() and sendRedirect() ⭐⭐
+
+| forward()             | sendRedirect()           |
+| --------------------- | ------------------------ |
+| Server side           | Client side              |
+| Same request object   | New request object       |
+| URL does not change   | URL changes              |
+| Faster                | Slower                   |
+| Can pass request data | Cannot pass request data |
+
+
+⭐ Diagram Difference
+
+forward()
+
+Client → Servlet1 → Servlet2
+           (same request)
+
+URL stays same.
+
+
+sendRedirect()
+
+Client → Servlet1 → Client → Servlet2
+
+Browser makes new request.
+URL changes.
+
+
+
+⭐ Very Important Viva Points
+
+✔ forward() keeps request data
+✔ sendRedirect() creates new request
+✔ forward() is faster
+
+
+⭐ One-Line Exam Answer
+
+RequestDispatcher forward() transfers control on the server side without changing URL, while 
+sendRedirect() redirects the client to a new URL and creates a new request.
+
+🧠 Memory Trick
+
+F → Fast → Forward
+R → Reload → Redirect
+      
+      `
+    },
+    {
+      id: 17,
+      question: "17. Explain Servlet Filter & Filter API Filter, FilterChain, FilterConfig, Mapping",
+      answer: "📌 New concept → high chance in exam",
+      codeExample: `
+🔵 What is Filter? (Very Simple)
+
+Imagine 👇
+
+You enter a college gate.
+Before going inside:
+
+    👉 Security checks your ID card.
+
+That security = Filter
+Classroom = Servlet
+
+So,
+
+👉 Filter checks request
+👉 Then allows it to go to servlet
+
+
+🔵 Simple Flow
+
+Client → Filter → Servlet → Filter → Client
+
+Filter works:
+
+    Before servlet
+    After servlet
+
+
+⭐ Why Use Filter?
+
+✔ Authentication
+✔ Logging
+✔ Data validation
+✔ Compression
+✔ Encryption
+
+
+
+⭐ Filter API Components
+
+Filter API is in package:
+
+    javax.servlet
+
+Main components:
+
+1️⃣ Filter
+2️⃣ FilterChain
+3️⃣ FilterConfig
+4️⃣ Filter Mapping
+    
+
+
+⭐ 1️⃣ Filter Interface
+
+You must implement:
+
+init()
+doFilter()
+destroy()
+
+
+Example Filter:
+
+import java.io.*;
+import javax.servlet.*;
+
+public class MyFilter implements Filter {
+
+    public void init(FilterConfig config) {
+        System.out.println("Filter initialized");
+    }
+
+    public void doFilter(ServletRequest request,
+                         ServletResponse response,
+                         FilterChain chain)
+            throws IOException, ServletException {
+
+        System.out.println("Request received");
+
+        // Pass request to next resource
+        chain.doFilter(request, response);
+
+        System.out.println("Response sent");
+    }
+
+    public void destroy() {
+        System.out.println("Filter destroyed");
+    }
+}
+
+
+
+⭐ 2️⃣ FilterChain
+🔹 Meaning
+
+FilterChain is used to:
+
+👉 Pass request to next filter or servlet
+
+Without this line:
+
+    chain.doFilter(request, response);
+
+Request will NOT reach servlet.
+
+
+
+⭐ 3️⃣ What is FilterConfig? (Very Simple)
+
+Think like this:
+
+👉 When filter starts, it may need some initial values
+Example:
+
+    Admin name
+    Password
+    Message
+    Any configuration value
+
+These values are written in web.xml
+FilterConfig helps to read those values.
+
+⭐ Real Example (Step by Step)
+
+🔹 Step 1: Write Filter with init()
+
+import java.io.*;
+import javax.servlet.*;
+
+public class MyFilter implements Filter {
+
+    FilterConfig config;
+
+    // init() runs only once
+    public void init(FilterConfig config) {
+        this.config = config;   // store config object
+    }
+
+    public void doFilter(ServletRequest request,
+                         ServletResponse response,
+                         FilterChain chain)
+            throws IOException, ServletException {
+
+        PrintWriter out = response.getWriter();
+
+        // Get value from web.xml
+        String admin = config.getInitParameter("adminName");
+
+        out.println("Admin Name from web.xml: " + admin);
+
+        chain.doFilter(request, response);
+    }
+
+    public void destroy() {}
+}
+
+
+🔹 Step 2: Add Initialization Parameter in web.xml
+
+<filter>
+    <filter-name>MyFilter</filter-name>
+    <filter-class>MyFilter</filter-class>
+
+    <!-- Initialization Parameter -->
+    <init-param>
+        <param-name>adminName</param-name>
+        <param-value>Raj</param-value>
+    </init-param>
+
+</filter>
+
+
+🔹 What Happens?
+
+1️⃣ Server starts filter
+2️⃣ init() runs
+3️⃣ FilterConfig gets value from web.xml
+4️⃣ doFilter() prints:
+
+Admin Name from web.xml: Raj
+
+
+
+⭐ 4️⃣ What is Filter Mapping?
+
+Now very important part 👇
+
+Filter mapping tells:
+
+    👉 On which URL or servlet this filter should work
+    Without mapping → Filter will NOT run.
+
+
+⭐ Example of Filter Mapping
+
+<filter-mapping>
+    <filter-name>MyFilter</filter-name>
+    <url-pattern>/hello</url-pattern>
+</filter-mapping>
+
+
+This means:
+
+Filter runs only when user accesses:
+
+http://localhost:8080/app/hello
+
+
+⭐ If We Write
+
+    <url-pattern>/*</url-pattern>
+
+It means:
+
+✔ Filter runs for ALL requests
+✔ Every servlet
+✔ Every JSP
+
+
+⭐ Simple Diagram
+
+    Client → Filter (MyFilter) → HelloServlet
+
+Only if mapping matches.
+
+
+⭐ Real-Life Example
+
+Imagine filter is:
+
+🔒 Security Guard
+
+Mapping is:
+
+📍 Which door he should stand at
+
+If door = /*
+→ Guard checks everyone
+
+If door = /admin
+→ Guard checks only admin page
+
+
+⭐ Quick Summary
+
+| Topic          | Meaning                            |
+| -------------- | ---------------------------------- |
+| FilterConfig   | Reads init parameters from web.xml |
+| Filter Mapping | Decides where filter will apply    |
+
+
+⭐ One-Line Exam Answer
+
+FilterConfig is used to get initialization parameters of filter from web.xml, and filter mapping is used to 
+define the URL pattern where filter should be applied.
+
+
+🧠 Memory Trick
+
+F C C M
+
+Filter
+Chain
+Config
+Mapping
+`
+    },
+    {
+      id: 18,
+      question: "18. 🧠 2 MARK / MCQ – JUST READ",
+      answer: "",
+      codeExample: `
+Default HTTP port → 80
+Servlet is managed by → Servlet Container
+Web server example → Apache Tomcat
+Application server → JBoss, GlassFish
+Session id created by → Container
+doGet() → URL data
+doPost() → Form body data
+      `
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
       id: 1,
       question: "1. ",
       answer: "",
