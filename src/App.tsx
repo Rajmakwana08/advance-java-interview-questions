@@ -3769,10 +3769,244 @@ public class BankBean implements Serializable {
                     `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 9,
+      question: "9. JSP - Custom Tags   Develop a custom JSP tag which accepts 10 numbers from user and sorts them in specified order.",
       answer: "",
-      codeExample: ``
+      codeExample: `
+Project Folder Structure
+
+Example path:
+
+C:\\xampp\\tomcat\\webapps\\CustomTag9
+
+Folder structure:
+    
+CustomTag9
+│
+├── index.jsp
+│
+└── WEB-INF
+     │
+     ├── web.xml
+     ├── custom.tld
+     │
+     └── classes
+          └── com
+               └── custom
+                    ├── SortTag.java
+                    └── SortTag.class
+
+
+index.jsp
+
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="WEB-INF/custom.tld" prefix="c" %>
+
+<html>
+<body>
+
+<h2>Custom Tag Sorting</h2>
+
+<c:sort numbers="9,5,3,8,1,2"/>
+
+</body>
+</html>
+
+
+
+web.xml
+
+<web-app>
+
+<welcome-file-list>
+<welcome-file>index.jsp</welcome-file>
+</welcome-file-list>
+
+</web-app>
+
+
+
+custom.tld
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib>
+
+<tlib-version>1.0</tlib-version>
+<jsp-version>2.0</jsp-version>
+<short-name>custom</short-name>
+
+<tag>
+<name>sort</name>
+<tag-class>com.custom.SortTag</tag-class>
+<body-content>empty</body-content>
+
+<attribute>
+<name>numbers</name>
+<required>true</required>
+</attribute>
+
+</tag>
+
+</taglib>
+
+
+
+SortTag.java
+
+package com.custom;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+
+public class SortTag extends SimpleTagSupport {
+
+    private String numbers;
+
+    public void setNumbers(String numbers){
+        this.numbers = numbers;
+    }
+
+    public void doTag() throws JspException, IOException {
+
+        JspWriter out = getJspContext().getOut();
+
+        StringTokenizer st = new StringTokenizer(numbers, ",");
+
+        int arr[] = new int[st.countTokens()];
+
+        for(int i=0;i<arr.length;i++){
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+
+        Arrays.sort(arr);
+
+        out.println("<h3>Sorted Numbers</h3>");
+
+        for(int i=0;i<arr.length;i++){
+            out.println(arr[i] + "<br>");
+        }
+    }
+}
+
+
+
+
+✅ Correct Compile Command
+
+Run this inside:
+
+WEB-INF\\classes\\com\\custom
+javac -cp "C:\\tomcat9\\apache-tomcat-9.0.115\\lib\\servlet-api.jar;C:\\tomcat9\\apache-tomcat-9.0.115\\lib\\jsp-api.jar" SortTag.java
+
+⚠ Important: On Windows, classpath jars are separated by ;
+
+
+
+🚀 Then run project
+
+Start Tomcat and open:
+
+http://localhost:8080/CustomTag9
+
+
+
+Output should be:
+
+Sorted Numbers
+1
+2
+3
+5
+8
+9
+
+
+
+
+---------------------------------------------------------
+
+
+🎯 Why .tld is Used
+
+Without a .tld file, JSP cannot understand your custom tag.
+It acts like a configuration file connecting JSP tags to Java classes.
+
+
+Example flow:
+
+JSP Page
+   ↓
+Custom Tag (<c:sort>)
+   ↓
+custom.tld
+   ↓
+Java Class (SortTag.java)
+   ↓
+Execution
+
+
+📌 Example
+
+1️⃣ JSP Page
+
+<%@ taglib uri="WEB-INF/custom.tld" prefix="c" %>
+
+<c:sort numbers="9,5,3,8,1"/>
+
+
+Here:
+
+c → tag prefix
+sort → custom tag
+
+
+2️⃣ TLD File
+
+<tag>
+    <name>sort</name>
+    <tag-class>com.custom.SortTag</tag-class>
+
+    <attribute>
+        <name>numbers</name>
+        <required>true</required>
+    </attribute>
+
+</tag>
+
+
+This tells JSP:
+
+    Tag name = sort
+    Java class = SortTag
+    Attribute = numbers
+
+
+📌 Where .tld File is Stored
+
+Usually inside:
+    WEB-INF/
+
+Example:
+    WEB-INF/custom.tld
+
+📌 Advantages of TLD
+
+✔ Allows creating reusable tags
+✔ Makes JSP cleaner and easier to read
+✔ Separates Java logic from HTML
+✔ Similar to built-in JSTL tags
+
+
+🧠 Simple One-Line Exam Answer
+
+A .tld (Tag Library Descriptor) file is an XML file used in JSP to define custom tags and map them to 
+their corresponding Java classes.
+      `
     },
     {
       id: 1,
