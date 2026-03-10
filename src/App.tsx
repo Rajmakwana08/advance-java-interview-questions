@@ -4009,10 +4009,111 @@ their corresponding Java classes.
       `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 10.10,
+      question: "10. JSP - Application Context  Develop an application that will allow maximum 3 users to access the application. If number of users exceeds than limit then user will be redirected to the error page.",
       answer: "",
-      codeExample: ``
+      codeExample: `
+Project Folder Structure
+
+Create project inside Tomcat webapps.
+
+Example:
+
+    C:\\tomcat9\\apache-tomcat-9.0.115\\webapps\\UserLimitApp
+
+Structure:
+    
+UserLimitApp
+│
+├── index.jsp
+├── error.jsp
+│
+└── WEB-INF
+     └── web.xml
+
+
+
+index.jsp
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+
+<%
+Integer count = (Integer)application.getAttribute("userCount");
+
+if(count == null){
+    count = 0;
+}
+
+count++;
+
+application.setAttribute("userCount", count);
+
+if(count > 3){
+    response.sendRedirect("error.jsp");
+    return;
+}
+%>
+
+<html>
+<body>
+
+<h2>Welcome to the Application</h2>
+
+<p>Current Users: <%= count %></p>
+
+</body>
+</html>
+
+
+
+error.jsp
+
+<html>
+<body>
+
+<h2 style="color:red;">Maximum User Limit Reached!</h2>
+
+<p>Only 3 users can access the application at a time.</p>
+
+</body>
+</html>
+
+
+
+web.xml
+
+<web-app>
+
+<welcome-file-list>
+<welcome-file>index.jsp</welcome-file>
+</welcome-file-list>
+
+</web-app>
+
+
+OUTPUT:
+
+Welcome to the Application
+Current Users: 1
+
+Welcome to the Application
+Current Users: 2
+
+Welcome to the Application
+Current Users: 3
+
+Maximum User Limit Reached!
+Only 3 users can access the application at a time.
+
+
+
+
+Run program:
+
+Open Browser:
+
+http://localhost:8080/UserLimitApp
+      `
     },
     {
       id: 1,
