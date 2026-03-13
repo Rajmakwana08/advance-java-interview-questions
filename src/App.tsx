@@ -3582,10 +3582,650 @@ their properties.
     },
     {
       id: 27,
-      question: "27. ",
+      question: "27. Explain Expression Language (EL) in JSP.",
       answer: "",
       codeExample: `
+Note: if you see like this $ {text}
+this means $ is join with {text} ok in this website is not supported to i wirte like this ok.
 
+
+First small idea:
+
+Earlier in JSP we printed values like this:
+
+    <%= name %>
+
+But JSP introduced Expression Language (EL) to make this simpler.
+
+
+
+⭐ Expression Language (EL) in JSP
+
+1️⃣ Definition
+
+Expression Language (EL) is used to access and display data in JSP pages easily without writing Java code.
+
+It allows us to read values from:
+
+JavaBeans
+request
+session
+application
+
+
+📌 In simple words:
+
+EL is a simple way to display data in JSP.
+
+
+
+⭐ 2️⃣ EL Syntax
+
+EL expressions are written inside:
+
+$ {expression}
+
+
+Example:
+
+$ {name}
+
+
+This means:
+
+print value of name
+
+
+So instead of writing:
+
+<%= name %>
+
+
+we write:
+
+$ {name}
+
+
+
+⭐ 3️⃣ Accessing Bean Properties
+
+Suppose we have a JavaBean Student.
+
+private String name;
+private int marks;
+
+Getter methods:
+
+getName()
+getMarks()
+
+
+JSP Using EL
+
+$ {student.name}
+$ {student.marks}
+
+EL automatically calls:
+
+student.getName()
+student.getMarks()
+
+So EL makes code short and clean.
+
+
+
+⭐ Example
+
+⭐ Step 1 — Create JavaBean Class
+
+File name: Student.java
+
+public class Student {
+
+    private String name;
+    private int marks;
+
+    // Setter for name
+    public void setName(String name){
+        this.name = name;
+    }
+
+    // Getter for name
+    public String getName(){
+        return name;
+    }
+
+    // Setter for marks
+    public void setMarks(int marks){
+        this.marks = marks;
+    }
+
+    // Getter for marks
+    public int getMarks(){
+        return marks;
+    }
+}
+
+📌 This class only stores data.
+
+
+⭐ Step 2 — JSP Page
+
+File name: index.jsp
+
+<%@ page language="java" %>
+
+<html>
+<body>
+
+<h2>Student Information</h2>
+
+<!-- Create Bean Object -->
+<jsp:useBean id="student" class="Student"/>
+
+<!-- Set Values -->
+<jsp:setProperty name="student" property="name" value="Raj"/>
+<jsp:setProperty name="student" property="marks" value="90"/>
+
+<!-- Access Using EL -->
+Name : $ {student.name} <br>
+Marks : $ {student.marks}
+
+</body>
+</html>
+
+
+⭐ Final Output
+
+Student Information
+
+Name : Raj
+Marks : 90
+
+
+⭐ 4️⃣ Accessing Scope Variables
+
+JSP has different scopes where data can be stored.
+
+Scopes:
+
+pageScope
+requestScope
+sessionScope
+applicationScope
+
+EL can access these values.
+
+
+Example 1 — Request Scope
+
+    $ {requestScope.username}
+
+Means:
+
+    request.getAttribute("username")
+
+
+Example 2 — Session Scope
+
+    $ {sessionScope.user}
+
+Means:
+
+    session.getAttribute("user")
+
+
+Example 3 — Application Scope
+
+    $ {applicationScope.count}
+
+Means:
+
+    application.getAttribute("count")
+
+
+⭐ Simple Diagram
+
+JSP Page
+   |
+   |  $ {expression}
+   v
+Expression Language
+   |
+   | access data from
+   v
+--------------------------
+JavaBean properties
+Request variables
+Session variables
+Application variables
+--------------------------
+
+
+⭐ Advantages of EL
+
+1️⃣ No Java code needed in JSP
+2️⃣ Easy to read
+3️⃣ Short syntax
+4️⃣ Access multiple scopes easily
+
+
+⭐ One-Line Exam Answer
+
+Expression Language (EL) in JSP is used to access and display data from JavaBeans and different scopes 
+using the syntax $ {expression}.
+      
+
+-----------------------------------------------------------------------------
+
+
+1️⃣ Servlet (Set Variables in Different Scopes)
+
+File: ScopeServlet.java
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class ScopeServlet extends HttpServlet {
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Request Scope
+        request.setAttribute("username", "Raj");
+
+        // Session Scope
+        HttpSession session = request.getSession();
+        session.setAttribute("user", "Raj Session");
+
+        // Application Scope
+        ServletContext application = getServletContext();
+        application.setAttribute("count", 10);
+
+        // Forward to JSP page
+        RequestDispatcher rd = request.getRequestDispatcher("scope.jsp");
+        rd.forward(request, response);
+    }
+}
+
+
+Explanation:
+
+request.setAttribute() → requestScope
+session.setAttribute() → sessionScope
+application.setAttribute() → applicationScope
+
+
+
+2️⃣ JSP Page (Access Scope Variables)
+
+File: scope.jsp
+
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    // Page Scope
+    pageContext.setAttribute("pageName", "This is Page Scope");
+%>
+
+<html>
+<head>
+<title>Scope Example</title>
+</head>
+
+<body>
+
+<h2>JSP Scope Example</h2>
+
+<h3>Page Scope</h3>
+$ {pageScope.pageName}
+
+<br><br>
+
+<h3>Request Scope</h3>
+$ {requestScope.username}
+
+<br><br>
+
+<h3>Session Scope</h3>
+$ {sessionScope.user}
+
+<br><br>
+
+<h3>Application Scope</h3>
+$ {applicationScope.count}
+
+</body>
+</html>
+
+
+3️⃣ Output in Browser
+
+When you open the servlet, the page will show:
+
+JSP Scope Example
+
+Page Scope
+This is Page Scope
+
+Request Scope
+Raj
+
+Session Scope
+Raj Session
+
+Application Scope
+10
+
+
+
+what is application scop
+
+
+⭐ Application Scope in JSP
+
+Application Scope means a variable that is shared across the entire web application.
+This data is available to all users, all pages, and all servlets in the application.
+It is stored in the ServletContext object.
+      
+
+🔹 Lifetime
+
+Starts when the web application starts (server starts)
+Ends when the server stops or application is restarted
+
+So the data stays for the whole application life.
+
+
+🔹 Example (Setting Value)
+
+In Servlet or JSP:
+
+    application.setAttribute("count", 100);
+
+This stores the value 100 in application scope.
+
+
+
+🔹 Access in JSP using EL
+$ {applicationScope.count}
+
+Meaning in Java:
+
+application.getAttribute("count");
+
+
+
+🔹 Simple Real-Life Example
+
+Suppose a website tracks total visitors.
+
+When someone visits:
+
+int count = (Integer)application.getAttribute("count");
+count++;
+application.setAttribute("count", count);
+
+Now every user sees the same visitor count because it is stored in application scope.
+
+
+🔹 Example JSP
+
+<%
+application.setAttribute("siteName", "My Website");
+%>
+
+Site Name: $ {applicationScope.siteName}
+
+
+Output:
+
+Site Name: My Website
+
+
+
+
+🔹 Easy Way to Remember
+
+Page Scope → Only one page
+Request Scope → One request
+Session Scope → One user session
+Application Scope → Whole website
+`
+    },
+    {
+      id: 28,
+      question: "28. ",
+      answer: "",
+      codeExample: `
+⭐ Page Scope
+
+Page Scope means the variable is available only inside one JSP page.
+Other pages cannot use it.
+When the page finishes loading, the data is removed.
+
+Example:
+
+pageContext.setAttribute("name","Raj");
+
+Access:
+
+$ {pageScope.name}
+
+👉 Simple idea:
+Only one page can see the data.
+
+
+
+⭐ Request Scope
+
+Request Scope means the variable is available during one request.
+If a Servlet sends data to a JSP, the JSP can read it.
+After the response is sent to the browser, the data is destroyed.
+
+Example:
+
+request.setAttribute("username","Raj");
+
+Access:
+
+$ {requestScope.username}
+
+👉 Simple idea:
+Data lives only for one request.
+
+Example flow:
+
+Servlet → JSP
+
+
+
+⭐ Session Scope
+
+Session Scope means the variable is available for one user during their session.
+
+The data stays until:
+
+the user logs out
+the session expires
+the browser closes
+
+Example:
+
+session.setAttribute("user","Raj");
+
+Access:
+
+$ {sessionScope.user}
+
+👉 Simple idea:
+Data stays for one user while they are using the website.
+
+Example:
+Logged-in user information.
+      
+      `
+    },
+    {
+      id: 29,
+      question: "29. JSTL (Java Standard Tag Library)",
+      answer: "",
+      codeExample: `
+⭐ JSTL (Java Standard Tag Library)
+1️⃣ Definition
+
+JSTL is a library of ready-made JSP tags used to perform common tasks like:
+
+loops
+conditions
+printing values
+working with XML
+formatting data
+
+📌 In simple words:
+
+JSTL provides tags to replace Java code in JSP.
+
+
+⭐ Why JSTL is Used
+
+Without JSTL:
+
+<%
+if(marks > 40){
+    out.println("Pass");
+}
+%>
+
+With JSTL:
+
+<c:if test="$ {marks > 40}">
+Pass
+</c:if>
+
+Much cleaner and easier.
+
+
+⭐ JSTL Tag Libraries
+
+JSTL provides different tag libraries.
+
+| Library    | Purpose             |
+| ---------- | ------------------- |
+| Core       | Basic operations    |
+| Formatting | Date and numbers    |
+| SQL        | Database operations |
+| XML        | XML processing      |
+| Functions  | String functions    |
+
+Most commonly used: Core Library
+
+
+⭐ Core JSTL Tags (Important)
+
+1️⃣ <c:out>
+
+Used to print value.
+
+Example:
+
+<c:out value="$ {name}" />
+
+Output:
+
+Raj
+
+
+
+2️⃣ <c:set>
+
+Used to store value in variable.
+
+Example:
+
+<c:set var="marks" value="85"/>
+
+
+
+3️⃣ <c:if>
+
+Used for condition checking.
+
+Example:
+
+<c:if test="$ {marks > 40}">
+Pass
+</c:if>
+
+
+
+4️⃣ <c:forEach>
+
+Used for looping.
+
+Example:
+
+<c:forEach var="i" begin="1" end="5">
+$ {i} <br>
+</c:forEach>
+
+Output:
+
+1
+2
+3
+4
+5
+
+
+⭐ Example JSP Program
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<html>
+<body>
+
+<c:set var="name" value="Raj"/>
+
+Name : <c:out value="$ {name}"/>
+
+</body>
+</html>
+
+
+Output:
+
+Name : Raj
+
+
+⭐ Simple Diagram
+
+JSP Page
+   |
+   v
+ JSTL Library
+   |
+--------------------------------
+| <c:out>     → print value     |
+| <c:set>     → store value     |
+| <c:if>      → condition       |
+| <c:forEach> → loop            |
+--------------------------------
+
+
+⭐ Advantages of JSTL
+
+1️⃣ Reduces Java code in JSP
+2️⃣ Makes JSP cleaner
+3️⃣ Easy to read
+4️⃣ Improves maintainability
+
+
+⭐ One-Line Exam Answer
+
+JSTL (Java Standard Tag Library) is a collection of custom tags used in JSP to perform common tasks such 
+as iteration, condition checking, and output formatting without using Java code.
       
       `
     },
@@ -3601,6 +4241,25 @@ their properties.
       answer: "",
       codeExample: ``
     },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+
     {
       id: 1111,
       question: "how to download jar folder",
@@ -5324,7 +5983,7 @@ http://localhost:8080/UserLimitApp
         {questions.map((q) => (
           <div key={q.id} className="question-item">
             <button 
-              className={`question-button ${activeId === q.id ? 'active' : ''}`}
+              className={`question-button $ {activeId === q.id ? 'active' : ''}`}
               onClick={() => toggleQuestion(q.id)}
             >
               {q.question}
