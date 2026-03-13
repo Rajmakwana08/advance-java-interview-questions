@@ -2389,46 +2389,1205 @@ doPost() → Form body data
       `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 21,
+      question: "21. Explain JSP Architecture and Working.",
+      answer: "📌 Very common theory question.",
+      codeExample: `
+⭐ 1️⃣ What is JSP?
+
+First think about this question:
+
+When we make a website page like:
+
+    <h1>Welcome Raj</h1>
+
+This is HTML (static).
+
+
+But sometimes we want dynamic data like:
+
+    user name
+    date
+    database data
+
+So we use JSP (Java Server Pages).
+
+👉 JSP is a technology used to create dynamic web pages using Java.
+
+It allows us to write:
+
+    HTML
+    Java code
+
+inside the same page.
+
+
+Example JSP:
+
+<html>
+<body>
+
+<%
+out.println("Hello JSP");
+%>
+
+</body>
+</html>
+
+📌 JSP runs on the server, not in the browser.
+
+
+
+⭐ 2️⃣ JSP Architecture (How JSP Works)
+
+Before I explain, look at this flow carefully.
+
+Client (Browser)
+       |
+       v
+   Web Server
+       |
+       v
+ Servlet Container (Tomcat)
+       |
+       v
+      JSP
+       |
+       v
+   Converted to Servlet
+       |
+       v
+  Compiled Java Class
+       |
+       v
+   Response to Client
+
+
+📌 Important idea:
+
+JSP is internally converted into a Servlet.
+
+
+
+⭐ 3️⃣ JSP Working Process (Step by Step)
+
+Let’s go step by step.
+
+
+Step 1 – Client Request
+
+User opens page:
+
+http://localhost:8080/app/index.jsp
+
+Browser sends request to web server.
+
+
+Step 2 – Request goes to Servlet Container
+
+The server forwards request to Servlet Container (Tomcat).
+
+
+Step 3 – JSP is converted to Servlet
+
+If JSP is accessed first time:
+JSP file → Converted into Servlet (.java file)
+
+Example:
+index.jsp → index_jsp.java
+
+
+Step 4 – Servlet is compiled
+
+Servlet container compiles it:
+index_jsp.java → index_jsp.class
+
+
+Step 5 – Servlet executes
+
+The servlet executes and generates HTML response.
+
+
+Step 6 – Response sent to Browser
+
+Finally browser receives output.
+
+
+
+⭐ JSP Working Diagram (Important for Exam)
+
+Browser
+   |
+   v
+Web Server
+   |
+   v
+Servlet Container
+   |
+   v
+JSP Page
+   |
+   v
+Converted to Servlet
+   |
+   v
+Compiled Class
+   |
+   v
+Response to Browser
+
+
+
+⭐ 4️⃣ Advantages of JSP over Servlets
+
+Now think:
+
+Servlet → mostly Java code
+JSP → mostly HTML + small Java
+So JSP is easier for web pages.
+
+| JSP                  | Servlet                |
+| -------------------- | ---------------------- |
+| Easy to write HTML   | HTML writing difficult |
+| Less Java code       | More Java code         |
+| Faster development   | Slower development     |
+| Better for UI design | Better for logic       |
+
+
+⭐ Simple Example
+
+JSP Page
+
+<html>
+<body>
+
+<h2>Welcome to JSP</h2>
+
+<%
+String name = "Raj";
+out.println("Hello " + name);
+%>
+
+</body>
+</html>
+
+Output:
+
+Welcome to JSP
+Hello Raj
+
+
+⭐ One-Line Exam Answer
+
+JSP is a server-side technology used to create dynamic web pages. A JSP page is converted into a servlet 
+by the servlet container and executed to generate the response.
+      
+      `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 22,
+      question: "22. Explain JSP Life Cycle with diagram.",
+      answer: "📌 Very important exam question.",
+      codeExample: `
+➡ JSP is converted into a Servlet by the servlet container (Tomcat).
+
+So the JSP life cycle is very similar to the Servlet life cycle.
+
+Let’s go step by step.
+
+
+⭐ JSP Life Cycle
+
+The JSP Life Cycle describes how a JSP page is:
+
+1️⃣ Converted to servlet
+2️⃣ Compiled
+3️⃣ Loaded
+4️⃣ Executed
+5️⃣ Destroyed
+
+The servlet container manages all these steps.
+
+
+⭐ JSP Life Cycle Diagram (Important for Exam)
+
+JSP Page
+   |
+   v
+Translation
+(JSP → Servlet)
+   |
+   v
+Compilation
+(Servlet → .class)
+   |
+   v
+Class Loading
+   |
+   v
+Instantiation
+   |
+   v
+jspInit()
+   |
+   v
+_jspService()
+   |
+   v
+jspDestroy()
+
+
+⭐ Step 1️⃣ JSP Translation
+
+When a JSP page runs for the first time, the container converts it into a Servlet (.java file).
+
+Example:
+
+    index.jsp → index_jsp.java
+
+This process is called Translation.
+
+
+⭐ Step 2️⃣ Compilation
+
+Now the generated servlet file is compiled.
+
+    index_jsp.java → index_jsp.class
+
+This is normal Java compilation.
+
+
+⭐ Step 3️⃣ Class Loading
+
+The servlet container loads the compiled .class file into memory.
+Now the JSP servlet is ready to run.
+
+
+⭐ Step 4️⃣ Instantiation
+
+The container creates an object of the JSP servlet class.
+
+Example idea:
+
+    new index_jsp();
+
+Now the JSP object exists in memory.
+
+
+⭐ Step 5️⃣ Initialization – jspInit()
+
+After object creation, the container calls:
+
+    jspInit()
+
+Purpose:
+
+✔ Initialize resources
+✔ Database connection
+✔ Configuration setup
+
+Important point:
+
+    📌 This method runs only once.
+
+Example:
+
+<%! 
+public void jspInit(){
+    System.out.println("JSP Initialized");
+}
+%>
+
+
+⭐ Step 6️⃣ Request Processing – _jspService()
+
+This method processes every client request.
+
+Example:
+
+    _jspService(request, response)
+
+Important points:
+
+✔ Runs for every request
+✔ Generates response
+✔ Cannot be overridden by user
+
+
+⭐ Step 7️⃣ Destruction – jspDestroy()
+
+When the server stops or JSP is removed, the container calls:
+
+    jspDestroy()
+
+Purpose:
+
+✔ Release resources
+✔ Close connections
+
+Example:
+
+<%! 
+public void jspDestroy(){
+    System.out.println("JSP Destroyed");
+}
+%>
+
+
+⭐ Summary Table
+
+| Step          | Description              |
+| ------------- | ------------------------ |
+| Translation   | JSP → Servlet            |
+| Compilation   | Servlet → Class file     |
+| Class Loading | Class loaded into memory |
+| Instantiation | Object created           |
+| jspInit()     | Initialization           |
+| _jspService() | Handles requests         |
+| jspDestroy()  | Cleanup                  |
+
+
+⭐ One-Line Exam Answer
+
+JSP life cycle includes translation, compilation, class loading, instantiation, initialization (jspInit), request 
+processing (_jspService), and destruction (jspDestroy).
+      `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 23,
+      question: "23. Explain JSP Scripting Elements.",
+      answer: "Often asked in exam.",
+      codeExample: `
+⭐ JSP Scripting Elements
+
+In JSP we sometimes need to write Java code inside HTML page.
+The special tags used to write Java code in JSP are called Scripting Elements.
+
+There are 3 types:
+
+1️⃣ Scriptlet
+2️⃣ Expression
+3️⃣ Declaration
+
+
+
+⭐ 1️⃣ Scriptlet <% %>
+
+First think:
+Where do we normally write Java statements like loops or variables?
+
+👉 That is done using Scriptlet.
+
+Syntax
+<% Java code %>
+
+
+Example
+
+<html>
+<body>
+
+<%
+int a = 10;
+int b = 20;
+out.println("Sum = " + (a+b));
+%>
+
+</body>
+</html>
+
+
+Output:
+
+Sum = 30
+
+
+📌 Scriptlet is used to write Java logic (statements).
+
+Examples:
+
+loops
+conditions
+variable creation
+
+
+
+⭐ 2️⃣ Expression <%= %>
+
+Now imagine you just want to display a value on the webpage.
+
+Instead of writing:
+
+    out.println(value);
+
+JSP provides Expression.
+
+Syntax
+<%= expression %>
+
+Example
+<html>
+<body>
+
+Current Time: <%= new java.util.Date() %>
+
+</body>
+</html>
+
+
+Output example:
+
+Current Time: Tue Mar 12 22:30:10 IST 2026
+
+
+📌 Expression automatically prints value.
+
+So internally JSP converts:
+
+<%= value %>
+
+into
+
+out.println(value);
+
+
+
+⭐ 3️⃣ Declaration <%! %>
+
+Declaration is used to declare variables or methods.
+These become class-level variables in the generated servlet.
+
+Syntax
+<%! declaration %>
+
+Example
+<%!
+int count = 0;
+
+public int add(int a, int b){
+    return a + b;
+}
+%>
+
+Result = <%= add(5,3) %>
+
+
+Output:
+
+Result = 8
+
+
+📌 Declaration is used for:
+
+variables
+methods
+class level code
+
+
+⭐ Simple Comparison
+
+| Element            | Purpose                   |
+| -------------------| ------------------------- |
+| Scriptlet <% %>    | Write Java statements     |
+| Expression <%= %>  | Print output              |
+| Declaration <%! %> | Declare variables/methods |
+
+
+⭐ Easy Diagram
+JSP Page
+   |
+   |-- Scriptlet <% %> → Java Logic
+   |-- Expression <%= %> → Display Value
+   |-- Declaration <%! %> → Variables/Methods
+
+
+⭐ One-Line Exam Answer
+
+JSP scripting elements are used to embed Java code inside JSP pages. The three types are Scriptlet, 
+Expression, and Declaration.
+      
+      `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 24,
+      question: "24. Explain JSP Implicit Objects.",
+      answer: "📌 Very important long answer.",
+      codeExample: `
+⭐ JSP Implicit Objects
+
+First understand the idea.
+In JSP, some objects are automatically created by the JSP container.
+You do NOT need to declare them.
+These ready-to-use objects are called Implicit Objects.
+
+📌 Total JSP implicit objects = 9
+
+
+But for exam, the important ones are:
+
+request
+response
+session
+application
+out
+config
+pageContext
+page
+exception
+
+
+
+⭐ 1️⃣ request Object
+Meaning
+
+request object stores client request information.
+
+Example:
+
+form data
+user input
+parameters
+
+Example
+<%
+String name = request.getParameter("username");
+out.println("Welcome " + name);
+%>
+
+📌 Used for:
+
+getting form values
+client request information
+
+
+
+⭐ 2️⃣ response Object
+Meaning
+
+response object is used to send response to the client (browser).
+
+Example:
+
+redirect page
+send output
+
+Example
+<%
+response.sendRedirect("home.jsp");
+%>
+
+📌 Used for:
+
+redirecting pages
+sending response to browser
+
+
+
+⭐ 3️⃣ session Object
+Meaning
+
+session object stores user data during session.
+
+
+Example:
+
+login information
+user id
+
+Example
+<%
+session.setAttribute("user","Raj");
+%>
+
+
+Retrieve value:
+
+<%
+String user = (String)session.getAttribute("user");
+%>
+
+📌 Used for:
+
+login sessions
+storing user data
+
+
+
+⭐ 4️⃣ application Object
+Meaning
+
+application object stores data shared by all users.
+It represents ServletContext.
+
+Example
+<%
+application.setAttribute("count",100);
+%>
+
+📌 Used for:
+
+global application data
+
+
+
+⭐ 5️⃣ out Object
+Meaning
+
+out is used to send output to browser.
+
+It is similar to:
+
+    System.out.println()
+
+but prints to webpage.
+
+Example
+<%
+out.println("Hello JSP");
+%>
+
+
+
+⭐ 6️⃣ config Object
+Meaning
+
+config object is used to get servlet configuration information.
+
+Example
+<%
+String value = config.getServletName();
+out.println(value);
+%>
+
+📌 Used to access init parameters.
+
+
+
+⭐ 7️⃣ pageContext Object
+Meaning
+
+pageContext is used to access all JSP objects.
+It manages page scope data.
+
+Example
+<%
+pageContext.setAttribute("msg","Hello");
+%>
+
+📌 Used to:
+
+manage page attributes
+access other implicit objects
+
+
+
+⭐ 8️⃣ page Object
+Meaning
+
+page object represents current JSP page instance.
+
+It is similar to:
+
+    this
+
+in Java.
+
+Example:
+<%
+out.println(page);
+%>
+
+
+
+⭐ 9️⃣ exception Object
+Meaning
+
+exception object is used only in error pages.
+It stores error information.
+
+Example:
+
+<%= exception.getMessage() %>
+
+Used in:
+
+<%@ page isErrorPage="true" %>
+
+
+
+⭐ Easy Diagram
+
+Client (Browser)
+       |
+       v
+   JSP Page
+       |
+--------------------------------
+| request   → client data       |
+| response  → send response     |
+| session   → user session      |
+| application → global data     |
+| out       → print output      |
+| config    → servlet config    |
+| pageContext → page control    |
+| page      → current page      |
+| exception → error info        |
+--------------------------------
+
+
+⭐ One-Line Exam Definition
+
+JSP implicit objects are automatically created objects provided by the JSP container that can be used 
+directly in JSP pages without declaration.
+      
+      `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 25,
+      question: "25. Explain JavaBeans in JSP.",
+      answer: "📌 High chance question.",
+      codeExample: `
+⭐ 1️⃣ What is JavaBean (Very Simple)
+
+JavaBean is just a normal Java class used to store data.
+
+Example: storing
+
+student name
+marks
+age
+
+
+But the rule is:
+
+variables private
+use getter and setter methods
+
+
+
+⭐ 2️⃣ JavaBean Class (Student.java)
+
+This file is created inside Java classes folder.
+
+public class Student {
+
+    private String name;   // variable
+    private int marks;     // variable
+
+    // setter method
+    public void setName(String name){
+        this.name = name;
+    }
+
+    // getter method
+    public String getName(){
+        return name;
+    }
+
+    // setter
+    public void setMarks(int marks){
+        this.marks = marks;
+    }
+
+    // getter
+    public int getMarks(){
+        return marks;
+    }
+}
+
+Now this class only stores values.
+But JSP will use this class.
+
+
+
+⭐ 3️⃣ JSP Page Using JavaBean
+
+Now JSP creates object of the class.
+
+Step 1 — Create Bean Object
+
+<jsp:useBean id="s" class="Student"/>
+
+Meaning:
+create object s of class Student
+
+Same as Java:
+Student s = new Student();
+
+
+⭐ 4️⃣ Setting Values (Setter)
+
+Now JSP sets values inside object.
+
+<jsp:setProperty name="s" property="name" value="Raj"/>
+<jsp:setProperty name="s" property="marks" value="90"/>
+
+Internally JSP converts it to Java:
+
+    s.setName("Raj");
+    s.setMarks(90);
+
+So values stored in object.
+
+
+
+⭐ 5️⃣ Getting Values (Getter)
+
+Now we print the values.
+
+Name : <jsp:getProperty name="s" property="name"/>
+Marks : <jsp:getProperty name="s" property="marks"/>
+
+
+Internally JSP converts to:
+
+s.getName();
+s.getMarks();
+
+
+⭐ Full JSP Example
+
+<jsp:useBean id="s" class="Student"/>
+
+<jsp:setProperty name="s" property="name" value="Raj"/>
+<jsp:setProperty name="s" property="marks" value="90"/>
+
+Name : <jsp:getProperty name="s" property="name"/>
+
+Marks : <jsp:getProperty name="s" property="marks"/>
+
+
+Output
+
+Name : Raj
+Marks : 90
+
+
+
+⭐ Simple Flow Diagram
+
+JSP Page
+   |
+   | create object
+   v
+Student Bean Object
+   |
+   | set values
+   v
+setName("Raj")
+setMarks(90)
+   |
+   | get values
+   v
+getName()
+getMarks()
+   |
+   v
+Display on webpage
+
+
+
+⭐ Easy Trick to Remember
+
+set = store value
+get = read value
+
+Example:
+
+setName("Raj")   → store name
+getName()        → read name
+
+
+
+⭐ Real Life Example
+
+Think JavaBean like Student Form.
+
+Name field → setName()
+Marks field → setMarks()
+
+Show result → getName()
+Show marks → getMarks()
+
+
+Now I want to check one thing (very important):
+
+If variable is
+
+    private int age;
+      
+
+--------------------------------------------------------------------------
+
+
+1️⃣ Look carefully at this line
+
+<jsp:setProperty name="s" property="name" value="Raj"/>
+
+
+Focus on this part:
+
+    property="name"
+
+
+This tells JSP:
+
+👉 Use the variable called name
+
+
+So JSP searches in the JavaBean:
+
+    set + Name
+
+So it calls:
+
+    setName("Raj")
+
+
+2️⃣ If you write property="marks"
+
+Example:
+
+    <jsp:setProperty name="s" property="marks" value="90"/>
+
+Now JSP sees:
+
+    property="marks"
+
+
+So JSP searches:
+
+    setMarks()
+
+
+and internally it calls:
+
+s.setMarks(90);
+
+
+3️⃣ Simple Rule
+
+JSP always uses:
+
+property name = variable name
+
+Then it creates method name automatically.
+
+property="name"  → setName()
+property="marks" → setMarks()
+property="age"   → setAge()
+
+
+4️⃣ Visual Flow
+property="name"
+      ↓
+variable = name
+      ↓
+method = setName()
+
+
+Another example:
+
+property="marks"
+      ↓
+variable = marks
+      ↓
+method = setMarks()
+
+
+5️⃣ Example JavaBean
+
+private String name;
+private int marks;
+
+Methods:
+
+setName()
+getName()
+
+setMarks()
+getMarks()
+
+JSP matches property name with variable name.
+
+
+6️⃣ Very Simple Example
+
+JSP Code
+
+<jsp:setProperty name="s" property="name" value="Raj"/>
+<jsp:setProperty name="s" property="marks" value="90"/>
+
+Internally becomes:
+
+s.setName("Raj");
+s.setMarks(90);
+      `
     },
     {
-      id: 1,
-      question: "1. ",
-      answer: "",
-      codeExample: ``
+      id: 26,
+      question: "26. Explain JSP Action Tags.",
+      answer: "📌 Often asked with example.",
+      codeExample: `
+First quick reminder:
+
+➡ JavaBean = class that stores data
+➡ JSP Action Tags = tags used to work with that JavaBean
+
+Now let’s learn the three important JSP Action Tags.
+
+
+⭐ JSP Action Tags
+
+JSP Action Tags are special tags used to perform actions inside JSP pages.
+They are written in XML style and executed by the JSP container.
+
+Example:
+
+    <jsp:actionName />
+
+Important action tags for exam:
+
+<jsp:useBean>
+<jsp:setProperty>
+<jsp:getProperty>
+
+
+⭐ 1️⃣ <jsp:useBean>
+Meaning
+
+This tag is used to create or locate a JavaBean object.
+It creates an object of a Java class.
+
+Syntax
+    <jsp:useBean id="objectName" class="ClassName"/>
+
+Example
+    <jsp:useBean id="s" class="Student"/>
+
+Meaning (internally):
+
+    Student s = new Student();
+
+So now JSP can use object s.
+
+
+⭐ 2️⃣ <jsp:setProperty>
+Meaning
+
+This tag is used to set value of a bean property.
+It calls the setter method of the JavaBean.
+
+Syntax
+    <jsp:setProperty name="beanName" property="variable" value="value"/>
+
+Example
+    <jsp:setProperty name="s" property="name" value="Raj"/>
+
+Internally JSP calls:
+
+    s.setName("Raj");
+
+So the value Raj is stored in the bean.
+
+
+⭐ 3️⃣ <jsp:getProperty>
+Meaning
+
+This tag is used to display the value of a bean property.
+It calls the getter method.
+
+Syntax
+
+    <jsp:getProperty name="beanName" property="variable"/>
+
+Example
+
+    Name : <jsp:getProperty name="s" property="name"/>
+
+Internally JSP calls:
+
+    s.getName();
+
+So it prints the value stored earlier.
+
+
+
+⭐ Full Example (Very Important)
+
+JavaBean Class
+
+public class Student {
+
+    private String name;
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
+}
+
+
+JSP Page
+
+<jsp:useBean id="s" class="Student"/>
+<jsp:setProperty name="s" property="name" value="Raj"/>
+Name : <jsp:getProperty name="s" property="name"/>
+
+
+Output:
+
+Name : Raj
+
+
+⭐ Simple Diagram
+
+JSP Page
+   |
+   | useBean
+   v
+Create Object (Student s)
+   |
+   | setProperty
+   v
+s.setName("Raj")
+   |
+   | getProperty
+   v
+s.getName()
+   |
+   v
+Display on webpage
+
+
+⭐ Easy Comparison
+
+| Tag               | Purpose                |
+| ------------------| ---------------------- |
+| <jsp:useBean>     | Create JavaBean object |
+| <jsp:setProperty> | Set value in bean      |
+| <jsp:getProperty> | Get value from bean    |
+
+
+
+⭐ One-Line Exam Answer
+
+JSP Action Tags are used to perform actions such as creating JavaBean objects and setting or retrieving 
+their properties.
+      
+      `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 27,
+      question: "27. ",
       answer: "",
-      codeExample: ``
+      codeExample: `
+
+      
+      `
     },
     {
       id: 1,
