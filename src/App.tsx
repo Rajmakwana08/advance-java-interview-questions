@@ -2751,6 +2751,46 @@ public void jspDestroy(){
 
 JSP life cycle includes translation, compilation, class loading, instantiation, initialization (jspInit), request 
 processing (_jspService), and destruction (jspDestroy).
+
+
+
+
+----------------------------------------------------------------
+
+Example:
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%!
+/* Initialization method - runs only once when JSP loads */
+public void jspInit(){
+    System.out.println("JSP Initialized");
+}
+
+/* Destruction method - runs when server stops or JSP is unloaded */
+public void jspDestroy(){
+    System.out.println("JSP Destroyed");
+}
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSP Life Cycle Example</title>
+</head>
+<body>
+
+<h2>JSP Life Cycle Demonstration</h2>
+
+<%
+    // This code runs inside _jspService() method automatically
+    out.println("This content is generated from _jspService() method.<br>");
+    out.println("Current Time: " + new java.util.Date());
+%>
+
+</body>
+</html>
       `
     },
     {
@@ -3996,7 +4036,7 @@ Application Scope → Whole website
     },
     {
       id: 28,
-      question: "28. ",
+      question: "28. Page scop.",
       answer: "",
       codeExample: `
 ⭐ Page Scope
