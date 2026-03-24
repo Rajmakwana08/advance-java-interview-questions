@@ -4276,6 +4276,277 @@ as iteration, condition checking, and output formatting without using Java code.
       codeExample: ``
     },
     {
+      id: 11111,
+      question: "Mid Paper",
+      answer: "",
+      codeExample: `
+=========================================
+ADVANCED JAVA PROGRAMMING - SOLVED PAPER
+=========================================
+
+
+-----------------------------------------
+Q1 (a) (i)
+Question: Define JDBC
+-----------------------------------------
+
+Answer:
+JDBC (Java Database Connectivity) is an API
+used to connect Java applications with databases
+and execute SQL queries.
+
+
+-----------------------------------------
+Q1 (a) (ii)
+Question: Purpose of HttpServletRequest
+-----------------------------------------
+
+Answer:
+HttpServletRequest is used to get request
+information from client such as parameters,
+form data, headers, etc.
+
+
+-----------------------------------------
+Q1 (a) (iii)
+Question: Any two implicit objects in JSP
+-----------------------------------------
+
+Answer:
+1. request
+2. response
+
+
+-----------------------------------------
+Q1 (b) MCQs
+-----------------------------------------
+
+1. Statement
+2. False
+3. Java Server Pages
+4. DriverManager
+5. out
+6. getConnection()
+7. init(), service(), destroy()
+
+
+
+-----------------------------------------
+Q2 (a) (i)
+Question: Steps to establish JDBC connection
+-----------------------------------------
+
+Answer:
+
+1. Load driver
+   Class.forName("com.mysql.cj.jdbc.Driver");
+
+2. Establish connection
+   Connection con = DriverManager.getConnection(url, user, pass);
+
+3. Create statement
+   Statement stmt = con.createStatement();
+
+4. Execute query
+   stmt.executeQuery() / executeUpdate();
+
+5. Close connection
+   con.close();
+
+
+-----------------------------------------
+Q2 (a) (ii)
+Question: Servlet Life Cycle
+-----------------------------------------
+
+Answer:
+
+1. init() → Initialization
+2. service() → Handles requests
+3. destroy() → Cleanup resources
+
+
+-----------------------------------------
+Q2 (b) (i)
+Question: Statement vs PreparedStatement
+-----------------------------------------
+
+Answer:
+
+Statement:
+- Used for simple queries
+- Less secure
+- No pre-compilation
+
+PreparedStatement:
+- Precompiled queries
+- More secure (prevents SQL injection)
+- Faster execution
+
+
+-----------------------------------------
+Q2 (b) (ii)
+Question: JSP implicit objects with example
+-----------------------------------------
+
+Answer:
+
+Example:
+
+<%
+String name = request.getParameter("name");
+out.println("Welcome " + name);
+%>
+
+Implicit objects:
+request, response, session, application, out
+
+
+
+-----------------------------------------
+Q3 (i)
+Question: JDBC program to insert data
+-----------------------------------------
+
+Answer:
+
+import java.sql.*;
+
+class InsertDemo {
+    public static void main(String[] args) throws Exception {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        Connection con = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/db", "root", "1234");
+
+        PreparedStatement ps = con.prepareStatement(
+            "insert into student values(?, ?)");
+
+        ps.setInt(1, 1);
+        ps.setString(2, "Ram");
+
+        ps.executeUpdate();
+
+        con.close();
+    }
+}
+
+
+-----------------------------------------
+Q3 (ii)
+Question: JDBC Architecture
+-----------------------------------------
+
+Answer:
+
+Components:
+1. Java Application
+2. JDBC API
+3. Driver Manager
+4. JDBC Driver
+5. Database
+
+Flow:
+Application → JDBC API → Driver → Database
+
+
+-----------------------------------------
+Q3 (iii)
+Question: Servlet vs JSP
+-----------------------------------------
+
+Answer:
+
+Servlet:
+- Java code based
+- Used for logic
+- Hard to design UI
+
+JSP:
+- HTML + Java
+- Used for presentation
+- Easy to design UI
+
+
+
+-----------------------------------------
+Q4 (a)
+Question: JDBC + Servlet Authentication
+-----------------------------------------
+
+Answer:
+
+Steps:
+
+1. User enters username/password in form
+2. Servlet receives data using request
+3. Connect database using JDBC
+4. Check credentials using SQL query
+5. If valid → show welcome message
+6. Else → show error message
+
+
+-----------------------------------------
+Q4 (b)
+Question: JSP Authentication Application
+-----------------------------------------
+
+Answer:
+
+index.jsp
+
+<form action="login.jsp">
+Username: <input type="text" name="user">
+<input type="submit">
+</form>
+
+
+login.jsp
+
+<%
+String user = request.getParameter("user");
+
+if(user != null)
+{
+    out.println("Welcome " + user);
+}
+%
+
+
+-----------------------------------------
+OR
+-----------------------------------------
+
+Question: JSP personalized welcome message
+-----------------------------------------
+
+Answer:
+
+index.jsp
+
+<form action="welcome.jsp">
+Enter Name: <input type="text" name="name">
+<input type="submit">
+</form>
+
+
+welcome.jsp
+
+<%
+String name = request.getParameter("name");
+out.println("Hello " + name + " Welcome!");
+%>
+      
+      `
+    },
+    {
+      id: 1,
+      question: "1. ",
+      answer: "",
+      codeExample: ``
+    },
+    {
       id: 1,
       question: "1. ",
       answer: "",
