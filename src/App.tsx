@@ -4547,26 +4547,2478 @@ out.println("Hello " + name + " Welcome!");
       codeExample: ``
     },
     {
+      id: 31,
+      question: "31. What is a Web Service? Explain its need & features.",
+      answer: "📌 Basic + very common question",
+      codeExample: `
+⭐ What is a Web Service?
+
+🔹 Definition  
+A Web Service is a software system that allows different applications to communicate over the internet.  
+
+📌 Simple Definition:  
+A Web Service is a method of communication between two applications using web technologies.  
+
+
+🔹 Example  
+Mobile App → sends request → Web Service → Database → Response  
+
+Examples:  
+- Weather app calling a weather API  
+- Payment system connecting to bank server  
+
+
+
+⭐ Need of Web Service  
+
+Why do we need Web Services?  
+
+1️⃣ Communication between different systems  
+→ Different applications can share data  
+
+2️⃣ Platform independence  
+→ Java app can communicate with Python / .NET app  
+
+3️⃣ Reusability  
+→ Same service can be used by multiple applications  
+
+4️⃣ Remote access  
+→ Applications can access services over the internet  
+
+
+
+⭐ Key Features of Web Service  
+
+🔹 1️⃣ Interoperability  
+
+Meaning:  
+Different systems (Java, Python, .NET) can work together  
+
+📌 Example:  
+Java application ↔ Python application  
+
+
+🔹 2️⃣ XML-Based Communication  
+
+Meaning:  
+Web services use XML format to send and receive data  
+
+📌 Example:  
+<user>  
+   <name>Raj</name>  
+</user>  
+
+XML is:  
+- Simple  
+- Platform-independent  
+
+
+🔹 3️⃣ Loosely Coupled System  
+
+Meaning:  
+Applications are independent of each other  
+
+📌 Simple Words:  
+One system can change without affecting the other  
+
+Example:  
+Mobile app uses API  
+Backend changes → App still works  
+
+
+⭐ Simple Diagram  
+
+Client (App)  
+     |  
+     v  
+ Web Service  
+     |  
+     v  
+ Server / Database  
+
+
+⭐ One-Line Exam Answer  
+
+A Web Service is a software system that enables communication between different applications over the 
+internet using standard protocols like XML.
+      
+      `
+    },
+    {
+      id: 32,
+      question: "32. Explain Web Service Architecture.",
+      answer: "📌 Very important long answer",
+      codeExample: `
+⭐ Web Service with Architecture
+
+🔹 Definition (Quick)  
+A Web Service is a system that allows different applications to communicate over the internet.  
+
+
+⭐ Main Components of Web Service  
+
+There are three main components:  
+
+1️⃣ Service Provider  
+2️⃣ Service Requestor  
+3️⃣ Service Registry (UDDI)  
+
+
+⭐ 1️⃣ Service Provider  
+
+Meaning:  
+The Service Provider is the system that creates and provides the web service.  
+
+📌 It:  
+- Develops the service  
+- Publishes it  
+- Handles requests  
+
+Example:  
+- Bank server providing payment service  
+- Weather API providing weather data  
+
+
+⭐ 2️⃣ Service Requestor  
+
+Meaning:  
+The Service Requestor is the client that uses the web service.  
+
+📌 It:  
+- Sends request  
+- Receives response  
+
+Example:  
+- Mobile app requesting weather data  
+- Website calling payment service  
+
+
+⭐ 3️⃣ Service Registry (UDDI)  
+
+Meaning:  
+UDDI (Universal Description, Discovery, and Integration) is like a directory of web services.  
+
+📌 It helps to:  
+- Store service information  
+- Allow clients to find services  
+
+Example:  
+Like a phone directory of web services  
+
+
+⭐ Operations in Web Service  
+
+There are three main operations:  
+
+
+⭐ 1️⃣ Publish  
+- Service Provider registers the service in UDDI  
+- Makes service available  
+
+Flow:  
+Provider → UDDI  
+
+
+⭐ 2️⃣ Find  
+- Service Requestor searches for service in registry  
+
+Flow:  
+Requestor → UDDI  
+
+
+⭐ 3️⃣ Bind  
+- Requestor connects to provider and uses the service  
+
+Flow:  
+Requestor ↔ Provider  
+
+
+⭐ Web Service Architecture (Perfect Diagram)
+
+                (1) Publish
+     ----------------------------------->
+   Service Provider                 Service Registry (UDDI)
+        |                                   |
+        |                                   |
+        |<----------------------------------|
+                (2) Find
+
+        |
+        | (3) Bind / Invoke
+        v
+   Service Requestor  <-------------------->  Service Provider
+
+
+⭐ Components Recap  
+
+- Service Provider → Creates and provides service  
+- Service Requestor → Uses the service  
+- Service Registry (UDDI) → Stores service information  
+
+
+
+⭐ How Web Service Works (Step-by-Step)  
+
+🔹 Step 1 — Publish  
+- Service Provider creates web service  
+- Publishes details to registry (UDDI)  
+
+Flow:  
+Provider → Registry  
+
+📌 Meaning: “My service is available”  
+
+
+🔹 Step 2 — Find  
+- Service Requestor searches for service in registry  
+
+Flow:  
+Requestor → Registry  
+
+📌 Meaning: “Which service can I use?”  
+
+
+🔹 Step 3 — Bind (Invoke)  
+- Requestor connects to Provider  
+- Sends request and receives response  
+
+Flow:  
+Requestor ↔ Provider  
+
+📌 Meaning: “Use the service”  
+
+
+
+⭐ Real-Life Example  
+
+Example: Weather App  
+
+Step 1 — Publish  
+Weather company publishes API in registry  
+
+Step 2 — Find  
+Mobile app searches for weather service  
+
+Step 3 — Bind  
+App calls API → gets weather data  
+
+
+⭐ Simple Flow Summary  
+
+1️⃣ Publish → Service available  
+2️⃣ Find → Service discovered  
+3️⃣ Bind → Service used  
+
+
+⭐ One-Line Exam Answer  
+
+In Web Service architecture, the provider publishes the service to the registry, the requestor finds it, and 
+then binds to use the service.  
+
+      `
+    },
+    {
+      id: 33,
+      question: "33. Explain Web Service Protocol Stack.",
+      answer: "📌 Frequently asked question",
+      codeExample: `
+⭐ Web Service Protocol Stack
+
+🔹 Definition  
+Web Service Protocol Stack is a set of layers (protocols) used for communication between applications 
+over the web.  
+
+📌 Each layer has a specific role.  
+
+
+⭐ Layers of Protocol Stack  
+
+There are 4 main layers:  
+
+1️⃣ Transport Layer  
+2️⃣ Messaging Layer  
+3️⃣ Description Layer  
+4️⃣ Discovery Layer  
+
+
+⭐ 1️⃣ Transport Layer  
+
+🔹 Meaning  
+This layer is responsible for sending data over the network.  
+
+🔹 Protocols  
+- HTTP (most common)  
+- FTP  
+- SMTP  
+
+🔹 Role  
+Send request and response between client and server  
+
+🔹 Example  
+Browser → HTTP → Server  
+
+
+⭐ 2️⃣ Messaging Layer (SOAP)  
+
+🔹 Meaning  
+This layer defines how messages are formatted and exchanged.  
+
+🔹 Protocol  
+SOAP (Simple Object Access Protocol)  
+
+🔹 Role  
+Convert data into XML format and send it  
+
+🔹 Example  
+<soap>  
+   <name>Raj</name>  
+</soap>  
+
+
+⭐ 3️⃣ Description Layer (WSDL)  
+
+🔹 Meaning  
+This layer describes how the web service works.  
+
+🔹 Protocol  
+WSDL (Web Services Description Language)  
+
+🔹 Role  
+Provides information about service methods, inputs, outputs  
+
+🔹 Example  
+Service: Weather API  
+Input: city  
+Output: temperature  
+
+
+⭐ 4️⃣ Discovery Layer (UDDI)  
+
+🔹 Meaning  
+This layer helps to find web services.  
+
+🔹 Protocol  
+UDDI (Universal Description, Discovery, and Integration)  
+
+🔹 Role  
+Acts like a directory of services  
+
+
+⭐ Complete Stack Diagram  
+
+   Discovery Layer   → UDDI  
+   -------------------------  
+   Description Layer → WSDL  
+   -------------------------  
+   Messaging Layer   → SOAP  
+   -------------------------  
+   Transport Layer   → HTTP / FTP / SMTP  
+
+
+⭐ How It Works (Flow)  
+
+1️⃣ UDDI → Find service  
+2️⃣ WSDL → Understand service  
+3️⃣ SOAP → Send message  
+4️⃣ HTTP → Deliver message  
+
+
+⭐ One-Line Exam Answer  
+
+The Web Service Protocol Stack consists of Transport (HTTP), Messaging (SOAP), Description (WSDL), and 
+Discovery (UDDI) layers used for communication between web services.  
+
+
+🎯 Easy Memory Trick  
+
+Transport → Messaging → Description → Discovery  
+(HTTP → SOAP → WSDL → UDDI)  
+      `
+    },
+    {
+      id: 34,
+      question: "34. Explain SOAP Web Services with advantages & disadvantages.",
+      answer: "📌 Important theory question",
+      codeExample: `
+⭐ SOAP Web Services
+
+🔹 Definition  
+SOAP (Simple Object Access Protocol) is a protocol used to exchange information between applications 
+over the internet.  
+
+📌 Simple Definition:  
+SOAP is an XML-based protocol used for communication between web services.  
+
+
+⭐ 1️⃣ XML-Based Protocol  
+
+SOAP uses XML format to send and receive messages.  
+
+Example:  
+<soap>  
+   <body>  
+      <name>Raj</name>  
+   </body>  
+</soap>  
+
+📌 All data is sent in structured XML format.  
+
+
+⭐ 2️⃣ Platform Independent  
+
+SOAP works on any platform and any programming language.  
+
+📌 Example:  
+Java ↔ .NET ↔ Python  
+
+All can communicate using SOAP.  
+
+
+⭐ 3️⃣ How SOAP Works (Simple)  
+
+Client → SOAP Request (XML) → Server  
+Server → SOAP Response (XML) → Client  
+
+
+⭐ Simple Diagram  
+
+Client  
+  |  
+  |  SOAP (XML Message)  
+  v  
+Web Service (Server)  
+  |  
+  v  
+Response (XML)  
+
+
+⭐ Advantages of SOAP  
+
+1️⃣ Platform Independent  
+→ Works with any language (Java, Python, etc.)  
+
+2️⃣ Standard Protocol  
+→ Uses standard rules (XML, HTTP)  
+
+3️⃣ Secure  
+→ Supports security features (WS-Security)  
+
+4️⃣ Reliable  
+→ Used in enterprise applications  
+
+
+⭐ Disadvantages of SOAP  
+
+1️⃣ Slow & Heavy ⭐  
+→ Uses XML (large size) → takes more time  
+
+2️⃣ Complex  
+→ Difficult to understand and implement  
+
+3️⃣ More Bandwidth  
+→ Requires more data transfer  
+
+4️⃣ Not Flexible  
+→ Strict format compared to REST  
+
+
+⭐ Quick Comparison Idea  
+
+SOAP → Heavy, Secure, XML  
+REST → Light, Fast, JSON  
+
+
+⭐ One-Line Exam Answer  
+
+SOAP is an XML-based protocol used for web services communication that is platform independent but 
+slow and heavy due to its complex structure.  
+      
+      `
+    },
+    {
+      id: 35,
+      question: "35. Explain RESTful Web Services.",
+      answer: "📌 Very important question",
+      codeExample: `
+⭐ RESTful Web Services
+
+🔹 Definition  
+
+REST stands for:  
+RE → Representational  
+S  → State  
+T  → Transfer  
+
+📌 Simple Definition:  
+REST is an architectural style used to design web services that use HTTP for communication.  
+
+
+⭐ 1️⃣ REST = Architectural Style  
+
+- REST is not a protocol (like SOAP)  
+- It is a design approach for building web services  
+
+📌 It defines how web services should be created and used  
+
+
+⭐ 2️⃣ Resource-Based  
+
+In REST, everything is treated as a resource  
+
+📌 A resource can be:  
+- User  
+- Product  
+- Order  
+
+Each resource is identified by a URL  
+
+Example:  
+/users  
+/products  
+/orders  
+
+👉 User data = resource  
+
+
+⭐ 3️⃣ HTTP Methods ⭐  
+
+REST uses standard HTTP methods to perform operations  
+
+
+🔹 GET  
+→ Used to retrieve data  
+
+Example:  
+GET /users  
+👉 Get all users  
+
+
+🔹 POST  
+→ Used to create new data  
+
+Example:  
+POST /users  
+👉 Add new user  
+
+
+🔹 PUT  
+→ Used to update data  
+
+Example:  
+PUT /users/1  
+👉 Update user with ID 1  
+
+
+🔹 DELETE  
+→ Used to delete data  
+
+Example:  
+DELETE /users/1  
+👉 Delete user  
+
+
+⭐ Simple Diagram  
+
+Client (App)  
+     |  
+     | HTTP Request (GET / POST / PUT / DELETE)  
+     v  
+REST Web Service  
+     |  
+     v  
+Server / Database  
+
+
+⭐ Features of REST  
+
+1️⃣ Lightweight (mostly uses JSON)  
+2️⃣ Fast and simple  
+3️⃣ Platform independent  
+4️⃣ Easy to use  
+
+
+⭐ Advantages  
+
+- Faster than SOAP  
+- Easy to understand  
+- Uses simple HTTP methods  
+
+
+⭐ Disadvantages  
+
+- Less secure than SOAP  
+- No strict standard  
+
+
+⭐ One-Line Exam Answer  
+
+RESTful Web Services are web services based on REST architecture that use HTTP methods like GET, POST, 
+PUT, and DELETE to operate on resources.  
+
+
+⭐ Quick Comparison (Very Important)  
+
+SOAP → Protocol, XML, Heavy  
+REST → Style, JSON, Light  
+      
+      
+      `
+    },
+    {
+      id: 36,
+      question: "36.Difference between SOAP vs REST",
+      answer: "📌 Guaranteed exam question",
+      codeExample: `
+      
+| Point       | SOAP                  | REST                 |
+| ------------| --------------------- | -------------------- |
+| Type        | Protocol              | Architectural Style  |
+| Speed       | Slow (heavy)          | Fast (lightweight)   |
+| Data Format | Only XML              | JSON, XML, Text      |
+| Performance | Low (more processing) | High (less overhead) |
+| Complexity  | Complex               | Simple               |
+| Flexibility | Less flexible         | More flexible        |
+
+
+⭐ Easy Memory Trick
+SOAP → Heavy, XML, Slow
+REST → Light, JSON, Fast
+
+
+⭐ One-Line Exam Answer
+
+SOAP is a protocol that uses XML and is slower, while REST is an architectural style that supports multiple 
+formats and provides better performance.
+
+      
+      `
+    },
+    {
+      id: 37,
+      question: "37. Explain REST Principles.",
+      answer: "📌 Short/medium question",
+      codeExample: `
+⭐ REST Principles
+
+REST (Representational State Transfer) follows some basic rules (principles) to design web services.  
+
+
+⭐ 1️⃣ Stateless  
+
+🔹 Meaning  
+Each request from client to server must contain all information.  
+
+📌 Server does NOT store previous request data  
+
+
+🔹 Example  
+Request 1 → Login  
+Request 2 → Get data (must include login info again)  
+
+👉 Server does NOT remember previous request  
+
+
+🔹 Key Point  
+No memory between requests  
+
+
+⭐ 2️⃣ Client–Server  
+
+🔹 Meaning  
+Client and Server are separate systems  
+
+- Client → sends request  
+- Server → sends response  
+
+🔹 Example  
+Mobile App (Client) → API Server → Database  
+
+🔹 Key Point  
+Independent systems  
+
+
+⭐ 3️⃣ Cacheable  
+
+🔹 Meaning  
+Responses can be stored (cached) for reuse  
+
+📌 Improves speed and performance  
+
+🔹 Example  
+GET /products → stored in cache  
+Next request → data comes from cache (faster)  
+
+🔹 Key Point  
+Faster response using cache  
+
+
+⭐ 4️⃣ Layered System  
+
+🔹 Meaning  
+System can have multiple layers (client, server, proxy, gateway)  
+
+📌 Client does not know how many layers exist  
+
+
+🔹 Example  
+Client → API Gateway → Server → Database  
+
+
+🔹 Key Point  
+Multiple layers for security & scalability  
+
+
+
+⭐ Simple Diagram  
+
+Client  
+  |  
+  v  
+[ Layer 1 ]  
+  |  
+[ Layer 2 ]  
+  |  
+[ Server ]  
+
+
+⭐ One-Line Exam Answer  
+
+REST principles include stateless communication, client-server separation, cacheable responses, and 
+layered system architecture.  
+
+
+🎯 Quick Memory Trick  
+
+Stateless → No memory  
+Client-Server → Separate  
+Cacheable → Fast  
+Layered → Multiple levels  
+      
+      `
+    },
+    {
+      id: 38,
+      question: "38. 2–3 MARK",
+      answer: "",
+      codeExample: `
+⭐ 1️⃣ WSDL → Service Description  
+
+🔹 Meaning  
+WSDL (Web Services Description Language) is used to describe a web service.  
+
+📌 It tells:  
+- What the service does  
+- What inputs are required  
+- What output is given  
+
+🔹 Simple Line  
+WSDL is used to describe how a web service works.  
+
+
+⭐ 2️⃣ UDDI → Service Registry  
+
+🔹 Meaning  
+UDDI (Universal Description, Discovery, and Integration) is a directory of web services.  
+
+📌 It helps to:  
+- Store services  
+- Find services  
+
+🔹 Simple Line  
+UDDI is used to register and discover web services.  
+
+
+⭐ 3️⃣ HTTP Methods → GET, POST, PUT, DELETE  
+
+🔹 Meaning  
+These methods are used in REST APIs to perform operations.  
+
+🔹 Functions  
+GET → Retrieve data  
+POST → Create data  
+PUT → Update data  
+DELETE → Remove data  
+
+🔹 Example  
+GET /users → get users  
+POST /users → add user  
+
+
+⭐ 4️⃣ SOAP → XML Protocol  
+
+🔹 Meaning  
+SOAP (Simple Object Access Protocol) is a protocol used for communication.  
+
+📌 Uses:  
+- XML format  
+- Standard rules  
+
+🔹 Simple Line  
+SOAP is an XML-based protocol used for web service communication.  
+
+
+⭐ 5️⃣ REST → Lightweight  
+
+🔹 Meaning  
+REST is an architectural style used to build web services.  
+
+📌 Features:  
+- Lightweight  
+- Fast  
+- Uses HTTP methods  
+
+🔹 Simple Line  
+REST is a lightweight and fast way to create web services.  
+
+
+
+⭐ Final Quick Summary  
+
+WSDL → Describe service  
+UDDI → Find service  
+HTTP → Operations (GET, POST, PUT, DELETE)  
+SOAP → XML-based protocol  
+REST → Lightweight architecture  
+
+
+
+
+
+⭐ Difference Between REST and REST API
+
+🔹 1️⃣ REST (Representational State Transfer)
+
+Meaning:  
+REST is an architectural style (design pattern) used to build web services.  
+
+📌 It defines rules/principles like:  
+- Stateless  
+- Client-Server  
+- Cacheable  
+- Layered system  
+
+👉 REST is a concept / theory (how to design system)  
+
+
+🔹 2️⃣ REST API
+
+Meaning:  
+A REST API is an actual implementation of REST principles.  
+
+📌 It is a web service that:  
+- Uses HTTP methods (GET, POST, PUT, DELETE)  
+- Works with resources (URLs like /users, /products)  
+- Sends/receives data (usually JSON)  
+
+👉 REST API is a real working system  
+
+
+⭐ Key Differences
+
+Point            REST                          REST API  
+-------------------------------------------------------------  
+Type             Architectural Style           Implementation (Service)  
+Nature           Concept / Design              Practical Application  
+Purpose          Defines rules                 Uses those rules  
+Usage            Not directly used             Used by apps (frontend/backend)  
+Example          Rules like Stateless          GET /users API  
+
+
+⭐ Simple Understanding  
+
+REST = Rules / Guidelines  
+REST API = Actual code using those rules  
+
+
+⭐ Real-Life Example  
+
+REST → Traffic rules  
+REST API → Cars following those rules  
+
+
+⭐ One-Line Exam Answer  
+
+REST is an architectural style that defines how web services should be designed, while a REST API is 
+the actual implementation of those principles used to communicate between systems.  
+      
+      `
+    },
+    {
+      id: 41,
+      question: "41. Explain Spring MVC Architecture & Flow.",
+      answer: "📌 Most important long question",
+      codeExample: `
+⭐ Spring MVC Architecture
+
+🔹 Definition  
+Spring MVC is a framework used to build web applications using the Model–View–Controller (MVC) design pattern.  
+
+
+⭐ Main Components  
+
+⭐ 1️⃣ Model  
+
+🔹 Meaning  
+- Holds data of the application  
+- Interacts with the database  
+
+📌 Example:  
+User data, Product data  
+
+
+⭐ 2️⃣ View  
+
+🔹 Meaning  
+- Responsible for UI (User Interface)  
+- Displays data to the user  
+
+📌 Example:  
+JSP, HTML page  
+
+
+⭐ 3️⃣ Controller  
+
+🔹 Meaning  
+- Handles user request  
+- Processes input  
+- Sends response  
+
+📌 Example:  
+LoginController, UserController  
+
+
+
+⭐ ⭐ DispatcherServlet (Front Controller)  
+
+🔹 Meaning  
+DispatcherServlet is the main controller (front controller) in Spring MVC  
+
+📌 It:  
+- Receives all requests  
+- Sends them to the correct controller  
+- Controls the full flow  
+
+🔹 Simple Line  
+DispatcherServlet acts as the central controller of Spring MVC  
+
+
+
+⭐ Other Important Components  
+
+⭐ 4️⃣ HandlerMapping  
+
+🔹 Meaning  
+Finds which controller should handle the request  
+
+📌 Example:  
+/user → UserController  
+
+
+⭐ 5️⃣ ViewResolver  
+
+🔹 Meaning  
+Decides which view (page) to show  
+
+📌 Example:  
+"home" → home.jsp  
+
+
+⭐ Complete Architecture Diagram  
+
+Client (Browser)  
+        |  
+        v  
+ DispatcherServlet  
+        |  
+        v  
+  HandlerMapping  
+        |  
+        v  
+   Controller  
+        |  
+        v  
+     Model  
+        |  
+        v  
+ ViewResolver  
+        |  
+        v  
+     View (JSP)  
+        |  
+        v  
+     Response  
+
+
+⭐ Flow of Spring MVC (Step-by-Step)  
+
+🔹 Step 1  
+Client sends request  
+Browser → DispatcherServlet  
+
+🔹 Step 2  
+DispatcherServlet receives request  
+
+🔹 Step 3  
+HandlerMapping finds controller  
+
+🔹 Step 4  
+Controller processes request  
+- Calls Model  
+- Gets data  
+
+🔹 Step 5  
+Controller returns view name  
+
+🔹 Step 6  
+ViewResolver finds actual page  
+
+🔹 Step 7  
+View displays data to user  
+
+
+⭐ Simple Flow Summary  
+
+Request → DispatcherServlet → Controller → Model → View → Response  
+
+
+⭐ One-Line Exam Answer  
+
+Spring MVC architecture consists of Model, View, and Controller with DispatcherServlet acting as the 
+front controller, along with HandlerMapping and ViewResolver to process requests.  
+
+
+🎯 Easy Memory Trick  
+
+DispatcherServlet → Main boss  
+HandlerMapping → Find controller  
+ViewResolver → Find page  
+      `
+    },
+    {
+      id: 42,
+      question: "42. What is Spring Framework? Explain its features.",
+      answer: "📌 Basic theory question",
+      codeExample: `
+⭐ What is Spring Framework?
+
+🔹 Definition  
+Spring Framework is a Java framework used to develop enterprise applications easily.  
+
+📌 Simple Meaning:  
+- Helps to build web apps, APIs, and large systems  
+- Reduces coding complexity  
+
+
+⭐ Features of Spring Framework  
+
+⭐ 1️⃣ Lightweight  
+
+🔹 Meaning  
+Spring is lightweight (small and fast).  
+
+📌 It does not require heavy resources  
+
+
+🔹 Example  
+Small configuration + less code  
+
+
+🔹 Key Point  
+Easy to use and fast  
+
+
+⭐ 2️⃣ IoC (Inversion of Control)  
+
+🔹 Meaning  
+In Spring, object creation is controlled by the container, not by the programmer  
+
+
+📌 Normally:  
+Car c = new Car();  
+👉 You create object manually  
+
+
+📌 In Spring:  
+Spring container creates and manages objects  
+
+
+🔹 Simple Line  
+IoC means control is given to Spring, not the developer  
+
+
+
+⭐ 3️⃣ AOP (Aspect-Oriented Programming)
+
+🔹 Simple Idea  
+AOP means putting common work (like logging, security) in one place instead of writing it again and again.  
+
+
+⭐ First Understand the Problem ❗  
+
+Suppose you have 3 methods:  
+
+login()  
+register()  
+payment()  
+
+
+Now you want to add logging (print "method called") in all:  
+
+login() {  
+   print("log");  
+   // code  
+}  
+
+register() {  
+   print("log");  
+   // code  
+}  
+
+payment() {  
+   print("log");  
+   // code  
+}  
+
+
+❌ Problem:  
+- Same code repeated again & again  
+- Code becomes messy  
+
+
+⭐ Solution → AOP ✅  
+
+With AOP, you write logging only once:  
+
+👉 Apply logging to all methods automatically  
+
+Spring will automatically add it everywhere  
+
+
+⭐ Real-Life Example 🧠  
+
+Think like this:  
+
+🏫 In college:  
+Every class needs attendance  
+
+Instead of teacher taking attendance in each class manually  
+👉 One system handles attendance for all classes  
+
+🔹 Key Point  
+Separates cross-cutting concerns  
+
+
+⭐ 4️⃣ Integration  
+
+🔹 Meaning  
+Spring easily integrates with other technologies  
+
+
+📌 Can work with:  
+- Hibernate  
+- JDBC  
+- Servlet  
+- REST APIs  
+
+
+🔹 Example  
+Spring + Hibernate → Database  
+Spring + REST → API  
+
+
+⭐ Simple Diagram  
+
+Spring Framework  
+      |  
+-------------------------  
+|    |     |      |  
+IoC  AOP   MVC  Integration  
+
+
+⭐ One-Line Exam Answer  
+
+Spring Framework is a lightweight Java framework that supports features like IoC, AOP, and easy 
+integration for building enterprise applications.  
+
+
+🎯 Easy Memory Trick  
+
+Spring = Lightweight + IoC + AOP + Integration  
+      
+      `
+    },
+    {
+      id: 43,
+      question: "43. Explain IoC (Inversion of Control) Container.",
+      answer: "📌 Frequently asked",
+      codeExample: `
+⭐ What is IoC (Inversion of Control) Container?
+
+🔹 Simple Meaning  
+IoC Container is a part of Spring that creates and manages objects (beans).  
+
+
+🔹 First Understand Normally ❗  
+
+In normal Java:  
+
+Car c = new Car();  
+
+👉 You (developer) create object manually  
+
+
+🔹 In Spring (IoC) ✅  
+
+Spring creates object for you  
+
+👉 You don’t use new  
+👉 Spring container handles everything  
+
+
+🔹 Why “Inversion of Control”?  
+
+Normally → You control object creation  
+In Spring → Spring controls object creation  
+
+📌 So control is inverted (reversed)  
+
+
+⭐ Real-Life Example 🧠  
+
+Think like food order:  
+
+❌ Without IoC:  
+You go to kitchen and cook yourself  
+
+✅ With IoC:  
+You order food → kitchen prepares → you just use  
+
+👉 Spring = Kitchen 🍽️  
+
+
+⭐ Types of IoC Container  
+
+There are 2 main types:  
+
+
+⭐ 1️⃣ BeanFactory  
+
+🔹 Meaning  
+Basic and simple container  
+Creates objects only when needed  
+
+🔹 Key Point  
+Lazy loading (object created when required)  
+
+🔹 Example Idea  
+You ask → then object is created  
+
+
+⭐ 2️⃣ ApplicationContext ⭐  
+
+🔹 Meaning  
+Advanced container (used most)  
+Creates objects at start  
+
+🔹 Key Point  
+Eager loading (created at startup)  
+
+🔹 Extra Features  
+- AOP support  
+- Event handling  
+- Internationalization  
+
+🔹 Example Idea  
+App starts → all objects ready  
+
+
+⭐ Difference (Very Important)  
+
+Point                BeanFactory           ApplicationContext  
+-------------------------------------------------------------  
+Type                 Basic                 Advanced  
+Object Creation      Lazy (on demand)      Eager (on startup)  
+Features             Limited               More features  
+
+
+⭐ Simple Diagram  
+
+IoC Container  
+     |  
+---------------------  
+|                   |  
+BeanFactory     ApplicationContext  
+
+
+⭐ One-Line Exam Answer  
+
+IoC Container in Spring is responsible for creating and managing objects, and its main types are 
+BeanFactory and ApplicationContext.  
+
+
+🎯 Easy Memory Trick  
+
+BeanFactory → Lazy  
+ApplicationContext → Ready at start  
+      `
+    },
+    {
+      id: 44,
+      question: "44. Explain Dependency Injection (DI).",
+      answer: "",
+      codeExample: `
+⭐ What is Dependency Injection (DI)?
+
+🔹 Simple Meaning  
+Dependency Injection means giving required objects (dependencies) from outside instead of creating them inside.  
+
+
+🔹 First Understand the Problem ❗  
+
+❌ Without DI:  
+
+class Car {  
+   Engine e = new Engine(); // tightly connected  
+}  
+
+👉 Problem:  
+- Car is directly creating Engine  
+- Hard to change / test  
+
+
+🔹 With DI ✅  
+
+class Car {  
+   Engine e;  
+
+   Car(Engine e) {  
+      this.e = e;  
+   }  
+}  
+
+👉 Engine is given from outside  
+
+
+🔹 Key Idea  
+Don't create object → Receive object  
+
+
+⭐ Real-Life Example 🧠  
+
+❌ Without DI:  
+You cook food yourself  
+
+✅ With DI:  
+Food is delivered to you  
+
+👉 You just use it  
+
+
+⭐ Types of Dependency Injection  
+
+There are 3 types:  
+
+
+⭐ 1️⃣ Constructor Injection  
+
+🔹 Meaning  
+Dependency is passed through constructor  
+
+🔹 Example  
+
+class Car {  
+   Engine e;  
+
+   Car(Engine e) {   // constructor injection  
+      this.e = e;  
+   }  
+}  
+
+🔹 Key Point  
+Object given at time of creation  
+
+
+⭐ 2️⃣ Setter Injection  
+
+🔹 Meaning  
+Dependency is set using setter method  
+
+🔹 Example  
+
+class Car {  
+   Engine e;  
+
+   void setEngine(Engine e) {  
+      this.e = e;  
+   }  
+}  
+
+🔹 Key Point  
+Object given after creation  
+
+
+⭐ 3️⃣ Field Injection  
+
+🔹 Meaning  
+Dependency is injected directly into variable  
+
+🔹 Example (Spring)  
+
+class Car {  
+   @Autowired  
+   Engine e;   // field injection  
+}  
+
+🔹 Key Point  
+No constructor or setter needed  
+
+
+⭐ Difference (Easy Table)  
+
+Type                     How it works  
+------------------------------------------  
+Constructor Injection    Through constructor  
+Setter Injection         Through setter method  
+Field Injection          Directly into variable  
+
+
+⭐ Simple Diagram  
+
+Car → needs Engine  
+
+Constructor → Car(Engine)  
+Setter → setEngine(Engine)  
+Field → @Autowired Engine  
+
+
+⭐ One-Line Exam Answer  
+
+Dependency Injection is a technique where objects are provided from outside, and its types include 
+Constructor, Setter, and Field Injection.  
+
+
+🎯 Easy Memory Trick  
+
+Constructor → at start  
+Setter → after start  
+Field → directly  
+
+
+---------------------------------------------------------------------
+
+
+⭐ First Understand in 1 Line  
+
+👉 DI = Don’t create object → Get object from outside  
+
+
+❌ WITHOUT Dependency Injection  
+
+You create object yourself:  
+
+class Engine {  
+    void start() {  
+        System.out.println("Engine started");  
+    }  
+}  
+
+class Car {  
+    Engine e = new Engine(); // ❌ tightly connected  
+
+    void drive() {  
+        e.start();  
+        System.out.println("Car is running");  
+    }  
+}  
+
+public class Main {  
+    public static void main(String[] args) {  
+        Car c = new Car();  
+        c.drive();  
+    }  
+}  
+
+
+❌ Problem:  
+- Car is fixed with Engine  
+- Cannot easily change or test  
+
+
+✅ WITH Dependency Injection (Constructor Injection)  
+
+Now object comes from outside:  
+
+class Engine {  
+    void start() {  
+        System.out.println("Engine started");  
+    }  
+}  
+
+class Car {  
+    Engine e;  
+
+    // Constructor Injection  
+    Car(Engine e) {  
+        this.e = e;  
+    }  
+
+    void drive() {  
+        e.start();  
+        System.out.println("Car is running");  
+    }  
+}  
+
+public class Main {  
+    public static void main(String[] args) {  
+
+        Engine e1 = new Engine();   // created outside  
+        Car c = new Car(e1);        // injected into Car  
+
+        c.drive();  
+    }  
+}  
+
+
+⭐ OUTPUT  
+
+Engine started  
+Car is running  
+
+
+⭐ What Changed? (VERY IMPORTANT)  
+
+Before → Car creates Engine  
+After  → Engine given to Car  
+
+👉 This is Dependency Injection  
+
+
+⭐ Now Types with Simple Programs  
+
+
+⭐ 1️⃣ Constructor Injection  
+
+Car(Engine e) {  
+    this.e = e;  
+}  
+
+👉 Given while creating object  
+
+
+⭐ 2️⃣ Setter Injection  
+
+class Car {  
+    Engine e;  
+
+    void setEngine(Engine e) {  
+        this.e = e;  
+    }  
+
+    void drive() {  
+        e.start();  
+        System.out.println("Car running");  
+    }  
+}  
+
+public class Main {  
+    public static void main(String[] args) {  
+        Engine e = new Engine();  
+        Car c = new Car();  
+
+        c.setEngine(e); // injection here  
+        c.drive();  
+    }  
+}  
+
+👉 Given after object creation  
+
+
+⭐ 3️⃣ Field Injection (Spring)  
+
+
+🔹 Meaning  
+Dependency is injected directly into variable  
+
+
+⭐ FULL WORKING EXAMPLE (Spring)  
+
+
+⭐ 1️⃣ Engine Class  
+
+import org.springframework.stereotype.Component;  
+
+@Component   // tells Spring to create object  
+class Engine {  
+
+    public void start() {  
+        System.out.println("Engine started");  
+    }  
+}  
+
+
+⭐ 2️⃣ Car Class (Field Injection)  
+
+import org.springframework.beans.factory.annotation.Autowired;  
+import org.springframework.stereotype.Component;  
+
+@Component   // Spring will manage this class  
+class Car {  
+
+    @Autowired   // Spring injects Engine automatically  
+    Engine e;  
+
+    public void drive() {  
+        e.start();  
+        System.out.println("Car is running");  
+    }  
+}  
+
+
+⭐ 3️⃣ Main Class  
+
+import org.springframework.context.ApplicationContext;  
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;  
+import org.springframework.context.annotation.ComponentScan;  
+import org.springframework.context.annotation.Configuration;  
+
+@Configuration  
+@ComponentScan   // scan for @Component classes  
+class AppConfig {}  
+
+public class Main {  
+    public static void main(String[] args) {  
+
+        ApplicationContext context =  
+            new AnnotationConfigApplicationContext(AppConfig.class);  
+
+        Car c = context.getBean(Car.class);  // get object from Spring  
+        c.drive();  
+    }  
+}  
+
+
+⭐ OUTPUT  
+
+Engine started  
+Car is running  
+
+
+⭐ How It Works (VERY IMPORTANT)  
+
+Step-by-step:  
+
+1️⃣ @Component → Spring creates objects (Engine, Car)  
+2️⃣ @Autowired → Spring connects Engine to Car  
+3️⃣ context.getBean(Car.class) → get Car object  
+4️⃣ Car uses Engine → output printed  
+
+
+🔹 Key Point  
+No constructor or setter needed  
+
+
+⭐ Difference (Easy Table)  
+
+Type                     How it works  
+------------------------------------------  
+Constructor Injection    Through constructor  
+Setter Injection         Through setter method  
+Field Injection          Directly into variable  
+
+
+⭐ Simple Diagram  
+
+Car → needs Engine  
+
+Constructor → Car(Engine)  
+Setter → setEngine(Engine)  
+Field → @Autowired Engine  
+
+
+⭐ One-Line Exam Answer  
+
+Dependency Injection is a technique where objects are provided from outside, and its types include 
+Constructor, Setter, and Field Injection.  
+
+
+      `
+    },
+    {
+      id: 45,
+      question: "45. Explain Hibernate Architecture.",
+      answer: "📌 Important long answer",
+      codeExample: `
+⭐ Hibernate Architecture
+
+🔹 Definition  
+Hibernate is a framework used to connect Java applications with databases (ORM – Object Relational Mapping).  
+
+📌 It converts:  
+Java Objects ↔ Database Tables  
+
+
+⭐ Main Components of Hibernate  
+
+⭐ 1️⃣ SessionFactory  
+
+🔹 Meaning  
+- Main factory object in Hibernate  
+- Creates Session objects  
+
+🔹 Key Points  
+- Created once (at startup)  
+- Heavy object  
+
+🔹 Simple Idea  
+👉 Like a factory that produces sessions  
+
+
+⭐ 2️⃣ Session  
+
+🔹 Meaning  
+Used to interact with the database  
+
+🔹 Work  
+- Save data  
+- Update data  
+- Delete data  
+- Fetch data  
+
+🔹 Example Idea  
+Session → perform database operations  
+
+
+⭐ 3️⃣ Transaction  
+
+🔹 Meaning  
+Ensures data consistency  
+
+🔹 Work  
+Begin → Do work → Commit / Rollback  
+
+🔹 Example  
+Money transfer → must complete fully or cancel  
+
+
+⭐ 4️⃣ ConnectionProvider  
+
+🔹 Meaning  
+Provides database connection  
+
+🔹 Work  
+Connects Hibernate → Database  
+
+
+⭐ Simple Architecture Diagram  
+
+Java Application  
+        |  
+        v  
+   SessionFactory  
+        |  
+        v  
+     Session  
+        |  
+        v  
+   Transaction  
+        |  
+        v  
+ConnectionProvider  
+        |  
+        v  
+     Database  
+
+
+⭐ Working Flow (Step-by-Step)  
+
+1️⃣ Application creates SessionFactory  
+2️⃣ SessionFactory creates Session  
+3️⃣ Session starts Transaction  
+4️⃣ Perform operations (save, update, delete)  
+5️⃣ Transaction commit / rollback  
+6️⃣ ConnectionProvider connects to database  
+
+
+⭐ One-Line Exam Answer  
+
+Hibernate architecture includes SessionFactory, Session, Transaction, and ConnectionProvider to manage 
+database operations efficiently.  
+
+
+🎯 Easy Memory Trick  
+
+SessionFactory → Create session  
+Session → Do work  
+Transaction → Control work  
+ConnectionProvider → Connect DB  
+
+
+
+
+⭐ 1️⃣ Entity Class (Student.java)  
+
+// Entity class (represents table)  
+import jakarta.persistence.*;  
+
+@Entity                      // marks this class as table  
+@Table(name = "student")  
+public class Student {  
+
+    @Id                     // primary key  
+    private int id;  
+
+    private String name;  
+    private int marks;  
+
+    // Getter and Setter  
+    public int getId() { return id; }  
+    public void setId(int id) { this.id = id; }  
+
+    public String getName() { return name; }  
+    public void setName(String name) { this.name = name; }  
+
+    public int getMarks() { return marks; }  
+    public void setMarks(int marks) { this.marks = marks; }  
+}  
+
+
+⭐ 2️⃣ Hibernate Config (hibernate.cfg.xml)  
+
+<!-- Configuration file -->  
+<!DOCTYPE hibernate-configuration PUBLIC  
+ "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+
+<hibernate-configuration>  
+ <session-factory>  
+
+  <!-- Database connection -->  
+  <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>  
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>  
+  <property name="hibernate.connection.username">root</property>  
+  <property name="hibernate.connection.password">root</property>  
+
+  <!-- Hibernate settings -->  
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>  
+  <property name="hibernate.hbm2ddl.auto">update</property>  
+  <property name="show_sql">true</property>  
+
+  <!-- Mapping class -->  
+  <mapping class="Student"/>  
+
+ </session-factory>  
+</hibernate-configuration>  
+
+
+⭐ 3️⃣ Main Program (Insert Data)  
+
+import org.hibernate.*;  
+import org.hibernate.cfg.Configuration;  
+
+public class MainApp {  
+    public static void main(String[] args) {  
+
+        // Step 1: Create Configuration  
+        Configuration cfg = new Configuration();  
+        cfg.configure("hibernate.cfg.xml");   // load config file  
+
+        // Step 2: Create SessionFactory  
+        SessionFactory factory = cfg.buildSessionFactory();  
+
+        // Step 3: Create Session  
+        Session session = factory.openSession();  
+
+        // Step 4: Begin Transaction  
+        Transaction tx = session.beginTransaction();  
+
+        // Step 5: Create object  
+        Student s = new Student();  
+        s.setId(1);  
+        s.setName("Raj");  
+        s.setMarks(90);  
+
+        // Step 6: Save object  
+        session.save(s);  
+
+        // Step 7: Commit transaction  
+        tx.commit();  
+
+        // Step 8: Close session  
+        session.close();  
+
+        System.out.println("Data Inserted Successfully!");  
+    }  
+}  
+
+
+⭐ Output  
+
+Data Inserted Successfully!  
+
+
+⭐ Step-by-Step Flow (Very Important)  
+
+1️⃣ Load configuration  
+2️⃣ Create SessionFactory  
+3️⃣ Open Session  
+4️⃣ Begin Transaction  
+5️⃣ Create object  
+6️⃣ Save data  
+7️⃣ Commit  
+8️⃣ Close session  
+
+
+⭐ Easy Memory Trick  
+
+Config → Factory → Session → Transaction → Save → Commit  
+      `
+    },
+    {
+      id: 46,
+      question: "46. What is ORM (Object Relational Mapping)? Explain in Hibernate.",
+      answer: "📌 Common theory question",
+      codeExample: `
+⭐ What is ORM (Object Relational Mapping)?
+
+🔹 Definition  
+ORM is a technique used to convert Java objects into database tables and vice versa.  
+
+
+🔹 Simple Meaning  
+Java Object ↔ Database Table  
+
+👉 It creates a bridge between Java and Database  
+
+
+⭐ Why ORM is Used?  
+
+❌ Without ORM  
+- You write SQL queries manually  
+
+✅ With ORM  
+- Hibernate handles database automatically  
+
+
+⭐ ORM in Hibernate  
+
+Hibernate uses ORM to map:  
+
+
+⭐ 1️⃣ Mapping Class ↔ Table  
+
+- Java class = Database table  
+
+Example:  
+class Student  
+Table → student  
+
+👉 Class name becomes table name  
+
+
+⭐ 2️⃣ Field ↔ Column  
+
+- Variables = Columns  
+
+Example:  
+int id;  
+String name;  
+
+Columns → id, name  
+
+
+⭐ Simple Mapping Diagram  
+
+Java Class (Student)  
+---------------------  
+id      → column id  
+name    → column name  
+marks   → column marks  
+
+        ↓  
+
+Database Table (student)  
+------------------------  
+id | name | marks  
+
+
+⭐ 3️⃣ XML / Annotation Mapping  
+
+Hibernate provides 2 ways to define mapping:  
+
+
+🔹 (A) XML Mapping  
+
+Mapping written in XML file  
+
+<class name="Student" table="student">  
+   <id name="id"/>  
+   <property name="name"/>  
+</class>  
+
+
+🔹 (B) Annotation Mapping ⭐ (Most Used)  
+
+Mapping written using annotations in Java class  
+
+@Entity  
+@Table(name="student")  
+class Student {  
+
+   @Id  
+   private int id;  
+
+   private String name;  
+}  
+
+
+⭐ Key Idea  
+
+Class → Table  
+Field → Column  
+Object → Record (Row)  
+
+
+⭐ Advantages of ORM  
+
+1️⃣ No need to write SQL  
+2️⃣ Easy to use  
+3️⃣ Saves time  
+4️⃣ Reduces code  
+
+
+⭐ One-Line Exam Answer  
+
+ORM is a technique that maps Java objects to database tables, where classes map to tables and fields 
+map to columns using XML or annotations.  
+
+
+🎯 Easy Memory Trick  
+
+Class → Table  
+Field → Column  
+Object → Row  
+
+
+
+
+⭐ 1️⃣ Hibernate Program using XML Mapping  
+
+
+🔹 (A) Student.java  
+
+// Simple POJO class (no annotations)  
+public class Student {  
+    private int id;  
+    private String name;  
+
+    // Getter & Setter  
+    public int getId() { return id; }  
+    public void setId(int id) { this.id = id; }  
+
+    public String getName() { return name; }  
+    public void setName(String name) { this.name = name; }  
+}  
+
+
+🔹 (B) student.hbm.xml  
+
+<!-- Mapping file -->  
+<hibernate-mapping>  
+    <class name="Student" table="student">  
+        <id name="id" column="id"/>  
+        <property name="name" column="name"/>  
+    </class>  
+</hibernate-mapping>  
+
+
+🔹 (C) hibernate.cfg.xml  
+
+<hibernate-configuration>  
+ <session-factory>  
+
+  <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>  
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>  
+  <property name="hibernate.connection.username">root</property>  
+  <property name="hibernate.connection.password">root</property>  
+
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>  
+  <property name="hibernate.hbm2ddl.auto">update</property>  
+
+  <!-- Mapping file -->  
+  <mapping resource="student.hbm.xml"/>  
+
+ </session-factory>  
+</hibernate-configuration>  
+
+
+🔹 (D) Main Program  
+
+import org.hibernate.*;  
+import org.hibernate.cfg.Configuration;  
+
+public class MainXML {  
+    public static void main(String[] args) {  
+
+        Configuration cfg = new Configuration();  
+        cfg.configure("hibernate.cfg.xml");  
+
+        SessionFactory factory = cfg.buildSessionFactory();  
+        Session session = factory.openSession();  
+        Transaction tx = session.beginTransaction();  
+
+        Student s = new Student();  
+        s.setId(1);  
+        s.setName("Raj");  
+
+        session.save(s);  
+
+        tx.commit();  
+        session.close();  
+
+        System.out.println("Data Inserted (XML Mapping)");  
+    }  
+}  
+
+
+
+⭐ 2️⃣ Hibernate Program using Annotation Mapping ⭐  
+
+
+🔹 (A) Student.java  
+
+import jakarta.persistence.*;  
+
+@Entity  
+@Table(name="student")  
+public class Student {  
+
+    @Id  
+    private int id;  
+
+    private String name;  
+
+    // Getter & Setter  
+    public int getId() { return id; }  
+    public void setId(int id) { this.id = id; }  
+
+    public String getName() { return name; }  
+    public void setName(String name) { this.name = name; }  
+}  
+
+
+🔹 (B) hibernate.cfg.xml  
+
+<hibernate-configuration>  
+ <session-factory>  
+
+  <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>  
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>  
+  <property name="hibernate.connection.username">root</property>  
+  <property name="hibernate.connection.password">root</property>  
+
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>  
+  <property name="hibernate.hbm2ddl.auto">update</property>  
+
+  <!-- Mapping class -->  
+  <mapping class="Student"/>  
+
+ </session-factory>  
+</hibernate-configuration>  
+
+
+🔹 (C) Main Program  
+
+import org.hibernate.*;  
+import org.hibernate.cfg.Configuration;  
+
+public class MainAnnotation {  
+    public static void main(String[] args) {  
+
+        Configuration cfg = new Configuration();  
+        cfg.configure("hibernate.cfg.xml");  
+
+        SessionFactory factory = cfg.buildSessionFactory();  
+        Session session = factory.openSession();  
+        Transaction tx = session.beginTransaction();  
+
+        Student s = new Student();  
+        s.setId(2);  
+        s.setName("Amit");  
+
+        session.save(s);  
+
+        tx.commit();  
+        session.close();  
+
+        System.out.println("Data Inserted (Annotation)");  
+    }  
+}  
+
+
+⭐ Key Difference (VERY IMPORTANT)  
+
+XML Mapping → Mapping in separate XML file  
+Annotation → Mapping inside Java class  
+
+
+🎯 Easy Memory Trick  
+
+XML → External file  
+Annotation → Inside class  
+      
+      `
+    },
+    {
+      id: 47,
+      question: "47. Explain HQL (Hibernate Query Language).",
+      answer: "📌 High chance question",
+      codeExample: `
+⭐ What is HQL (Hibernate Query Language)?
+
+🔹 Definition  
+HQL is a query language used in Hibernate to perform database operations using Java class names 
+instead of table names.  
+
+
+🔹 Simple Meaning  
+HQL → Works on Objects  
+SQL → Works on Tables  
+
+👉 HQL uses class & field names, not table/column names  
+
+
+⭐ Difference between HQL and SQL  
+
+| Point              | HQL            | SQL                     |
+| ------------------ | -------------- | ----------------------- |
+| Works On           | Java Objects   | Database Tables         |
+| Names Used         | Class & fields | Table & columns         |
+| Database Dependent | No             | Yes                     |
+| Example            | from Student   | SELECT * FROM student   |
+
+
+⭐ HQL Examples  
+
+Assume:  
+
+class Student {  
+   int id;  
+   String name;  
+}  
+
+
+⭐ 1️⃣ SELECT Query  
+
+Query q = session.createQuery("from Student");  
+List<Student> list = q.list();  
+
+📌 Meaning:  
+Get all Student objects  
+
+
+⭐ 2️⃣ UPDATE Query  
+
+Query q = session.createQuery("update Student set name='Raj' where id=1");  
+q.executeUpdate();  
+
+📌 Meaning:  
+Update name of student with id = 1  
+
+
+⭐ 3️⃣ DELETE Query  
+
+Query q = session.createQuery("delete from Student where id=1");  
+q.executeUpdate();  
+
+📌 Meaning:  
+Delete student with id = 1  
+
+
+⭐ Simple Diagram  
+
+Java Object (Student)  
+        |  
+        v  
+       HQL  
+        |  
+        v  
+     Database  
+
+
+⭐ Key Points  
+
+1️⃣ Uses class name, not table name  
+2️⃣ Database independent  
+3️⃣ Easy to use  
+
+
+⭐ One-Line Exam Answer  
+
+HQL is a Hibernate query language that works on Java objects and is used to perform operations like 
+SELECT, UPDATE, and DELETE.  
+
+
+🎯 Easy Memory Trick  
+
+HQL → Object based  
+SQL → Table based  
+
+
+
+
+⭐ HQL Program Example  
+
+
+🔹 Assumption  
+
+You already have Student entity class:  
+
+@Entity  
+@Table(name="student")  
+public class Student {  
+
+    @Id  
+    private int id;  
+    private String name;  
+
+    // getters & setters  
+}  
+
+
+⭐ Main Program (HQL Operations)  
+
+import org.hibernate.*;  
+import org.hibernate.cfg.Configuration;  
+import java.util.List;  
+
+public class HQLExample {  
+    public static void main(String[] args) {  
+
+        // Step 1: Load configuration  
+        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");  
+
+        // Step 2: Create SessionFactory  
+        SessionFactory factory = cfg.buildSessionFactory();  
+
+        // Step 3: Open Session  
+        Session session = factory.openSession();  
+
+        // Step 4: Begin Transaction  
+        Transaction tx = session.beginTransaction();  
+
+
+        // =========================  
+        // ⭐ 1️⃣ SELECT Query  
+        // =========================  
+        Query q1 = session.createQuery("from Student"); // HQL  
+        List<Student> list = q1.list();  
+
+        System.out.println("---- SELECT ----");  
+        for(Student s : list) {  
+            System.out.println(s.getId() + " " + s.getName());  
+        }  
+
+
+        // =========================  
+        // ⭐ 2️⃣ UPDATE Query  
+        // =========================  
+        Query q2 = session.createQuery(  
+            "update Student set name='UpdatedName' where id=1"  
+        );  
+        int updated = q2.executeUpdate();  
+        System.out.println("Updated Rows: " + updated);  
+
+
+        // =========================  
+        // ⭐ 3️⃣ DELETE Query  
+        // =========================  
+        Query q3 = session.createQuery(  
+            "delete from Student where id=2"  
+        );  
+        int deleted = q3.executeUpdate();  
+        System.out.println("Deleted Rows: " + deleted);  
+
+
+        // Step 5: Commit Transaction  
+        tx.commit();  
+
+        // Step 6: Close Session  
+        session.close();  
+
+        System.out.println("HQL Operations Done!");  
+    }  
+}  
+
+
+⭐ Output Example  
+
+---- SELECT ----  
+1 Raj  
+2 Amit  
+
+Updated Rows: 1  
+Deleted Rows: 1  
+
+HQL Operations Done!  
+
+
+⭐ Step-by-Step Flow  
+
+1️⃣ Load config  
+2️⃣ Open session  
+3️⃣ Start transaction  
+4️⃣ Run HQL queries  
+5️⃣ Commit  
+6️⃣ Close session  
+
+
+⭐ Important Points  
+
+"from Student" → uses class name (not table)  
+"update Student" → object-based query  
+"delete from Student" → remove object  
+
+
+⭐ One-Line Exam Tip  
+
+In HQL program, we use session.createQuery() to execute object-based queries like SELECT, UPDATE, and 
+DELETE.  
+      
+      `
+    },
+    {
       id: 1,
-      question: "1. ",
+      question: "1.",
       answer: "",
       codeExample: ``
     },
     {
       id: 1,
-      question: "1. ",
+      question: "1.",
       answer: "",
       codeExample: ``
     },
     {
       id: 1,
-      question: "1. ",
+      question: "1.",
       answer: "",
       codeExample: ``
     },
     {
       id: 1,
-      question: "1. ",
+      question: "1.",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1.",
+      answer: "",
+      codeExample: ``
+    },
+    {
+      id: 1,
+      question: "1.",
       answer: "",
       codeExample: ``
     },
