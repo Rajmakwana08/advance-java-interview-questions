@@ -7277,7 +7277,7 @@ public class StudentCRUD {
 
             while (true) {
 
-                System.out.println("\n----- STUDENT MENU -----");
+                System.out.println("\\n----- STUDENT MENU -----");
                 System.out.println("1. Insert Student");
                 System.out.println("2. Update Student");
                 System.out.println("3. Delete Student");
@@ -8697,34 +8697,633 @@ http://localhost:8080/UserLimitApp
       `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 11.11,
+      question: "11. Currency Conversion REST Service",
       answer: "",
-      codeExample: ``
+      codeExample: `
+CurrencyServlet.java
+
+
+package com.example;
+
+import java.io.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+@WebServlet("/convert")
+public class CurrencyServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String from = request.getParameter("from");
+        String to = request.getParameter("to");
+        double amount = Double.parseDouble(request.getParameter("amount"));
+
+        double result = convert(from, to, amount);
+
+        response.setContentType("text/plain");
+
+        PrintWriter out = response.getWriter();
+        out.println("Converted Amount: " + result);
+    }
+
+    private double convert(String from, String to, double amount) {
+
+        double usd = 83, inr = 1, eur = 90;
+
+        double fromRate = from.equalsIgnoreCase("USD") ? usd :
+                          from.equalsIgnoreCase("EUR") ? eur : inr;
+
+        double toRate = to.equalsIgnoreCase("USD") ? usd :
+                        to.equalsIgnoreCase("EUR") ? eur : inr;
+
+        return (amount / fromRate) * toRate;
+    }
+}
+
+
+
+URL for Output
+
+http://localhost:8080/Practical_111/convert?from=USD&to=INR&amount=10
+      
+      `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 12.12,
+      question: "12. Student Registration REST Service",
       answer: "",
-      codeExample: ``
+      codeExample: `
+
+Index.html
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Registration</title>
+</head>
+
+<body>
+
+    <h2>Student Registration Form</h2>
+
+    <form action="http://localhost:8081/Practical_122/webapi/student/register"
+          method="post">
+
+        Name: <input type="text" name="name"><br><br>
+
+        Email: <input type="email" name="email"><br><br>
+
+        Course: <input type="text" name="course"><br><br>
+
+        <input type="submit" value="Register">
+
+    </form>
+
+</body>
+</html>
+
+
+
+StudentService.java
+
+package com.example;
+
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/student")
+public class StudentService {
+
+    @POST
+    @Path("/register")
+    @Produces(MediaType.TEXT_PLAIN)
+
+    public String registerStudent(
+
+            @FormParam("name") String name,
+            @FormParam("email") String email,
+            @FormParam("course") String course) {
+
+        return "Student Registered Successfully!\\n"
+                + "Name: " + name
+                + "\\nEmail: " + email
+                + "\\nCourse: " + course;
+    }
+}
+
+
+MyApplication.java
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+@ApplicationPath("/webapi")
+public class MyApplication extends Application {
+
+}
+`
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 13.13,
+      question: "13. RESTful Web Service CRUD Operations",
       answer: "",
-      codeExample: ``
+      codeExample: `
+index.jsp
+
+<h2>Phonebook CRUD</h2>
+
+<form action="api/phone/add" method="get">
+    Name: <input type="text" name="name">
+    <input type="submit" value="Add">
+</form>
+
+<br>
+
+<form action="api/phone/update" method="get">
+    ID: <input type="text" name="id">
+    Name: <input type="text" name="name">
+    <input type="submit" value="Update">
+</form>
+
+<br>
+
+<form action="api/phone/delete" method="get">
+    ID: <input type="text" name="id">
+    <input type="submit" value="Delete">
+</form>
+
+<br>
+
+<a href="api/phone/view">View All</a>
+
+
+
+PhoneBookService.java
+
+package com.example;
+
+import javax.ws.rs.*;
+import java.sql.*;
+
+@Path("/phone")
+public class PhoneBookService {
+
+    private Connection con;
+
+    // Constructor
+    public PhoneBookService() {
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/phonebook",
+                    "root",
+                    "");
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+        }
+    }
+
+    // CREATE
+    @GET
+    @Path("/add")
+
+    public String add(@QueryParam("name") String name) {
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(
+                    "INSERT INTO contacts(name) VALUES(?)");
+
+            ps.setString(1, name);
+
+            ps.executeUpdate();
+
+            return "Added";
+
+        } catch (Exception e) {
+
+            return e.toString();
+        }
+    }
+
+    // READ
+    @GET
+    @Path("/view")
+
+    public String view() {
+
+        String r = "";
+
+        try {
+
+            ResultSet rs = con.createStatement()
+                    .executeQuery("SELECT * FROM contacts");
+
+            while (rs.next())
+
+                r += rs.getInt(1) + " : " + rs.getString(2) + "\\n";
+
+        } catch (Exception e) {
+
+            r = e.toString();
+        }
+
+        return r;
+    }
+
+    // UPDATE
+    @GET
+    @Path("/update")
+
+    public String update(@QueryParam("id") int id,
+                         @QueryParam("name") String name) {
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE contacts SET name=? WHERE id=?");
+
+            ps.setString(1, name);
+
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+
+            return "Updated";
+
+        } catch (Exception e) {
+
+            return e.toString();
+        }
+    }
+
+    // DELETE
+    @GET
+    @Path("/delete")
+
+    public String delete(@QueryParam("id") int id) {
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(
+                    "DELETE FROM contacts WHERE id=?");
+
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+
+            return "Deleted";
+
+        } catch (Exception e) {
+
+            return e.toString();
+        }
+    }
+}
+
+
+
+MyApp.java
+
+package com.example;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+@ApplicationPath("/api")
+public class MyApp extends Application {
+
+}
+
+
+Database SQL
+
+CREATE DATABASE phonebook;
+
+CREATE TABLE contacts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
+);
+      
+      `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 14.14,
+      question: "14. JAX-RS Client",
       answer: "",
-      codeExample: ``
+      codeExample: `
+index.jsp
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+
+<html>
+<head>
+    <title>JAX-RS Client</title>
+</head>
+
+<body>
+
+<h2>Student Data</h2>
+
+<pre>
+$ {data}
+</pre>
+
+</body>
+</html>
+
+
+
+ClientServlet.java
+
+package com.servlet;
+
+import com.client.MyClient;
+import java.io.IOException;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+@WebServlet("/client")
+public class ClientServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String result = MyClient.getData();
+
+        request.setAttribute("data", result);
+
+        request.getRequestDispatcher("index.jsp")
+               .forward(request, response);
+    }
+}
+
+
+
+ApplicationConfig.java
+
+package com.api;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+@ApplicationPath("/webapi")
+public class ApplicationConfig extends Application {
+
+}
+
+
+
+MyClient.java
+
+package com.client;
+
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.MediaType;
+
+public class MyClient {
+
+    private static final String URL =
+            "http://localhost:8080/Practical_14/webapi/students";
+
+    public static String getData() {
+
+        Client client = ClientBuilder.newClient();
+
+        String response = client
+                .target(URL)
+                .request(MediaType.APPLICATION_JSON)
+                .get(String.class);
+
+        client.close();
+
+        return response;
+    }
+}
+
+
+
+StudentResource.java
+
+package com.api;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+
+@Path("/students")
+public class StudentResource {
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+
+    public String getStudents() {
+
+        return "[{\"id\":1,\"name\":\"Abc\"},{\"id\":2,\"name\":\"\"}]";
+    }
+}
+
+
+
+      `
     },
     {
-      id: 1,
-      question: "1. ",
+      id: 15.15,
+      question: "15. Authentication RESTful Service",
       answer: "",
-      codeExample: ``
+      codeExample: `
+index.jsp
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+
+<body>
+
+<h2>Login Form</h2>
+
+<form action="login" method="post">
+
+    Username:
+    <input type="text" name="username"><br><br>
+
+    Password:
+    <input type="password" name="password"><br><br>
+
+    <input type="submit" value="Login">
+
+</form>
+
+<br>
+
+<h3>
+    $ {message}
+</h3>
+
+</body>
+</html>
+
+
+
+AuthClient.java
+
+package com.client;
+
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.*;
+
+public class AuthClient {
+
+    private static final String URL =
+            "http://localhost:8080/Practical_15/webapi/auth";
+
+    public static String authenticate(String username,
+                                      String password) {
+
+        System.out.println("Calling API: " + URL);
+
+        Client client = ClientBuilder.newClient();
+
+        Form form = new Form();
+
+        form.param("username", username);
+        form.param("password", password);
+
+        String response = client.target(URL)
+                .request(MediaType.TEXT_PLAIN)
+                .post(
+                        Entity.entity(
+                                form,
+                                MediaType.APPLICATION_FORM_URLENCODED
+                        ),
+                        String.class
+                );
+
+        client.close();
+
+        return response;
+    }
+}
+
+
+
+
+AuthResource.java
+
+package com.api;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+
+@Path("/auth")
+public class AuthResource {
+
+    @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+
+    public String login(
+            @FormParam("username") String username,
+            @FormParam("password") String password) {
+
+        System.out.println("API Called: " + username);
+
+        if ("admin".equals(username)
+                && "1234".equals(password)) {
+
+            return "SUCCESS";
+
+        } else {
+
+            return "FAIL";
+        }
+    }
+}
+
+
+
+LoginServlet.java
+
+package com.servlet;
+
+import com.client.AuthClient;
+
+import java.io.IOException;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        System.out.println("Servlet Received: " + username);
+
+        String result =
+                AuthClient.authenticate(username, password);
+
+        if ("SUCCESS".equals(result)) {
+
+            request.setAttribute(
+                    "message",
+                    "Login Successful!"
+            );
+
+        } else {
+
+            request.setAttribute(
+                    "message",
+                    "Invalid Credentials!"
+            );
+        }
+
+        request.getRequestDispatcher("index.jsp")
+               .forward(request, response);
+    }
+}
+
+
+
+
+ApplicationConfig.java
+
+package com.api;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+@ApplicationPath("/webapi")
+public class ApplicationConfig extends Application {
+
+}
+      
+      `
     },
     {
       id: 1,
